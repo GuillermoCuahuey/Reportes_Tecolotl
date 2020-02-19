@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web xmlns="http://www.jboss.com/xml/ns/javaee" version="8.0">
     <context-root>/reportes</context-root>
+    <virtual-host>reportes.e-squadron.com.mx</virtual-host>
 </jboss-web>
