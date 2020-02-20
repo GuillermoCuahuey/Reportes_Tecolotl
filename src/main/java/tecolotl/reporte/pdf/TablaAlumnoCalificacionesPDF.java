@@ -28,6 +28,8 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class TablaAlumnoCalificacionesPDF {
      * @return una tabla con sus valores correspondientes.
      * @throws IOException Error de lectura de archivo.
      */
-    public Table creaTabla(PdfDocument pdf, List<TareaAlumnoModelo> tareaAlumnoModeloLista) throws IOException {
+    public Table creaTabla(PdfDocument pdf, List<TareaAlumnoModelo> tareaAlumnoModeloLista) throws IOException, URISyntaxException {
         Table tabla = new Table(9);
         Cell celda = this.crearCampo(1, 9);
         celda.add(new Paragraph("Filtros").setFontColor(ColorConstants.WHITE));
@@ -78,7 +80,6 @@ public class TablaAlumnoCalificacionesPDF {
         }
         tabla.useAllAvailableWidth();
         tabla.setMarginTop(10);
-        tareaAlumnoModeloLista.forEach(System.out::println);
         return tabla;
     }
 
@@ -89,7 +90,7 @@ public class TablaAlumnoCalificacionesPDF {
      * @param colSpan Numero de columnas a unir o fusionar
      * @return una Celda con el campo correspondiente.
      */
-    private Cell crearCampo(String valorCampo, int rowSpan, int colSpan, DeviceRgb color, Short progressBarSize, PdfDocument pdf) throws IOException {
+    private Cell crearCampo(String valorCampo, int rowSpan, int colSpan, DeviceRgb color, Short progressBarSize, PdfDocument pdf) throws IOException, URISyntaxException {
         Cell celda = new Cell(rowSpan,colSpan)
                 .setTextAlignment(TextAlignment.CENTER)
                 .setBackgroundColor(color,0f)
@@ -102,7 +103,7 @@ public class TablaAlumnoCalificacionesPDF {
         return celda;
     }
 
-    private Paragraph opciones(String valor, Short puntaje, PdfDocument pdf) throws IOException{
+    private Paragraph opciones(String valor, Short puntaje, PdfDocument pdf) throws IOException, URISyntaxException{
         Paragraph nuevoValor;
         try{
             if(puntaje == (short)-1){
@@ -111,7 +112,7 @@ public class TablaAlumnoCalificacionesPDF {
                 nuevoValor = new Paragraph(valor).setFontColor(ColorConstants.BLACK).add(this.creaImagen(puntaje, pdf));
             }
         }catch (NullPointerException e){
-            nuevoValor = new Paragraph("").setTextAlignment(TextAlignment.CENTER).add(this.creaImagen("C:\\Users\\Cavaliere\\Documents\\images\\forbidden.svg", pdf));
+            nuevoValor = new Paragraph("").setTextAlignment(TextAlignment.CENTER).add(this.creaImagen(new URL("https","tecolotl-multimedia.nyc3.digitaloceanspaces.com","/Tecolotl/REPORTE_PDF/imagenesStorage/forbidden.svg"), pdf));
         }
         return nuevoValor;
     }
@@ -182,7 +183,6 @@ public class TablaAlumnoCalificacionesPDF {
         File svg;
         svg = new File("../progressBar.xml");
         Image imgSVG = SvgConverter.convertToImage(svg.toURI().toURL().openStream(), pdf);
-        //imgSVG.setMarginTop(5);
         return imgSVG;
     }
 
@@ -193,9 +193,9 @@ public class TablaAlumnoCalificacionesPDF {
      * @return una imagen.
      * @throws IOException
      */
-    private Image creaImagen(String urlArchivo, PdfDocument pdf) throws IOException{
+    private Image creaImagen(URL urlArchivo, PdfDocument pdf) throws IOException, URISyntaxException{
         File svg;
-        svg = new File(urlArchivo);
+        svg = new File(urlArchivo.toURI());
         Image imgSVG = SvgConverter.convertToImage(svg.toURI().toURL().openStream(), pdf);
         imgSVG.setMarginLeft(15);
         return imgSVG;
@@ -210,11 +210,11 @@ public class TablaAlumnoCalificacionesPDF {
      * @throws SAXException Error crear el Documento.
      * @throws TransformerException Error al guardar los datos.
      */
-    private void progressBar(Short progressBarSize) throws ParserConfigurationException, IOException, SAXException, TransformerException{
+    private void progressBar(Short progressBarSize) throws ParserConfigurationException, IOException, SAXException, TransformerException, URISyntaxException {
         float valor = ((50 * progressBarSize) / 100f);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        Document document = documentBuilder.parse(new File("C:\\Users\\Cavaliere\\Documents\\images\\recta.svg"));
+        Document document = documentBuilder.parse(new File(new URL("https","tecolotl-multimedia.nyc3.digitaloceanspaces.com","/Tecolotl/REPORTE_PDF/imagenesStorage/recta.svg").toURI()));
         NodeList elementos = document.getElementsByTagName("rect");
         for (int i = 0; i < elementos.getLength(); i++) {
             Element el = (Element) elementos.item(i);

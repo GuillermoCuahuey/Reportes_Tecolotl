@@ -16,6 +16,8 @@ import tecolotl.reporte.modelo.DatosAlumnoModelo;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 public class DatosSesionGrupo {
@@ -25,7 +27,7 @@ public class DatosSesionGrupo {
     private final DeviceCmyk color3 = new DeviceCmyk(8,7,7,0);
     private final DeviceRgb color4 = new DeviceRgb(255,255,255);
 
-    public Table creaDatosSesioonGrupo(PdfDocument pdfDocument, List<DatosAlumnoModelo> datosAlumnoModeloLista) throws IOException {
+    public Table creaDatosSesioonGrupo(PdfDocument pdfDocument, List<DatosAlumnoModelo> datosAlumnoModeloLista) throws IOException, URISyntaxException {
         Table tabla = new Table(new float[] {1,1});
         for (DatosAlumnoModelo datosAlumnoModelo : datosAlumnoModeloLista){
             tabla.addCell(
@@ -47,7 +49,7 @@ public class DatosSesionGrupo {
         return tabla;
     }
 
-    private Table datosAlumno(String nombreCompleto, String apodoT, String apodoA, byte[] contrasenia, Short galaxia, PdfDocument pdf) throws IOException {
+    private Table datosAlumno(String nombreCompleto, String apodoT, String apodoA, byte[] contrasenia, Short galaxia, PdfDocument pdf) throws IOException, URISyntaxException{
         String splitContrasenia = new String(contrasenia);
         String []contrasenias = splitContrasenia.split(",",2);
         Table tabla = new Table(1);
@@ -57,8 +59,8 @@ public class DatosSesionGrupo {
                         new Paragraph("")
                                 .setTextAlignment(TextAlignment.CENTER)
                                 .add(
-                                        new Image(ImageDataFactory.create("C:\\Users\\Cavaliere\\Documents\\images\\profesor1.png"))
-                                                .setHeight(30).setWidth(50)
+                                        new Image(ImageDataFactory.create(new URL("https", "tecolotl-multimedia.nyc3.digitaloceanspaces.com", "/Tecolotl/REPORTE_PDF/imagenesStorage/esqFill.png")))
+                                                .setHeight(40).setWidth(150)
                                 )
                 )
         );
@@ -72,7 +74,7 @@ public class DatosSesionGrupo {
         tabla.addCell(new Cell(1,1).setBorder(Border.NO_BORDER)
                 .add(new Paragraph("")
                         .setTextAlignment(TextAlignment.CENTER)
-                        .add(new Image(ImageDataFactory.create("C:\\Users\\Cavaliere\\Documents\\LINEA-HORIZONTAL.png")).setWidth(200).setHeight(20))
+                        .add(new Image(ImageDataFactory.create(new URL("https", "tecolotl-multimedia.nyc3.digitaloceanspaces.com", "/Tecolotl/REPORTE_PDF/imagenesStorage/LINEA-HORIZONTAL.png"))).setWidth(200).setHeight(20))
                 )
         );
         //Datos Alumno user, pass, galaxia
@@ -102,7 +104,7 @@ public class DatosSesionGrupo {
                         .add(
                                 new Paragraph("")
                                         .add(
-                                                new Image(ImageDataFactory.create("C:\\Users\\Cavaliere\\Documents\\images\\profesor1.png")).setWidth(40).setHeight(40)
+                                                new Image(ImageDataFactory.create(new URL("https", "tecolotl-multimedia.nyc3.digitaloceanspaces.com", "/Tecolotl/REPORTE_PDF/imagenesStorage/profesor.png"))).setWidth(40).setHeight(40)
                                         ).setTextAlignment(TextAlignment.RIGHT)
                         )
         );
@@ -113,14 +115,14 @@ public class DatosSesionGrupo {
         return tabla;
     }
 
-    private Table creaTabla2(String dato, String pass1, String pass2, PdfDocument pdf) throws IOException{
+    private Table creaTabla2(String dato, String pass1, String pass2, PdfDocument pdf) throws IOException, URISyntaxException{
         Table tabla = new Table(2);
         tabla.addCell(
                 new Cell(4,1).setBorder(Border.NO_BORDER)
                         .add(
                                 new Paragraph("")
                                         .add(
-                                                new Image(ImageDataFactory.create("C:\\Users\\Cavaliere\\Documents\\images\\profesor1.png")).setWidth(40).setHeight(40)
+                                                new Image(ImageDataFactory.create(new URL("https", "tecolotl-multimedia.nyc3.digitaloceanspaces.com", "/Tecolotl/REPORTE_PDF/imagenesStorage/estudiante.png"))).setWidth(40).setHeight(40)
                                         ).setTextAlignment(TextAlignment.RIGHT)
                         )
         );
@@ -161,9 +163,9 @@ public class DatosSesionGrupo {
         return celda;
     }
 
-    private Image passImg(String pass, PdfDocument pdf) throws IOException{
+    private Image passImg(String pass, PdfDocument pdf) throws IOException, URISyntaxException {
         File svgImagen;
-        svgImagen = new File("C:\\Users\\Cavaliere\\Documents\\images\\".concat(pass).concat(".svg"));
+        svgImagen = new File(new URL("https", "tecolotl-multimedia.nyc3.digitaloceanspaces.com", "/Tecolotl/REPORTE_PDF/imagenesStorage/".concat(String.valueOf((Integer.parseInt(pass)+1))).concat(".svg")).toURI());
         Image imagen = SvgConverter.convertToImage(svgImagen.toURI().toURL().openStream(), pdf);
         imagen.setWidth(30);
         imagen.setHeight(30);

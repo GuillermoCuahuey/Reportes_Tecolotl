@@ -11,6 +11,8 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import tecolotl.reporte.modelo.DatosProfesorModelo;
 
+import java.net.URL;
+
 public class DatosUsuarioPDF {
 
     private final DeviceCmyk color1 = new DeviceCmyk(75,100,0,0);
@@ -30,7 +32,7 @@ public class DatosUsuarioPDF {
                 new Cell(3,1)
                 .add(
                         new Paragraph("").add(
-                                new Image(ImageDataFactory.create("../profesor1.png"))
+                                new Image(ImageDataFactory.create(new URL("https","tecolotl-multimedia.nyc3.digitaloceanspaces.com","/Tecolotl/REPORTE_PDF/imagenesStorage/profesor.png")))
                                 .setWidth(80)
                                 .setHeight(80)
                         )

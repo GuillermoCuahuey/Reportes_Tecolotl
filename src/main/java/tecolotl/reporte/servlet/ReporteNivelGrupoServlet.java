@@ -1,7 +1,5 @@
 package tecolotl.reporte.servlet;
 
-import org.jboss.logging.Logger;
-import tecolotl.reporte.modelo.GrupoModelo;
 import tecolotl.reporte.pdf.ReporteSquadron;
 import tecolotl.reporte.sesion.TareaAlumnoSesionBean;
 
@@ -18,9 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@WebServlet(name = "Reporte Tareas", urlPatterns = "reporte-tarea")
-public class ReporteGruposAlumnoServlet extends HttpServlet {
-
+@WebServlet(name = "Reporte Nivel Grupos", urlPatterns = "reporte-nivel")
+public class ReporteNivelGrupoServlet extends HttpServlet {
     @Inject
     private TareaAlumnoSesionBean tareaAlumnoSesionBean;
 
@@ -28,22 +25,26 @@ public class ReporteGruposAlumnoServlet extends HttpServlet {
     private ReporteSquadron reporteSquadron;
 
     @Override
-    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        String grupo = (String) httpServletRequest.getParameter("grupo");
-        //ByteArrayOutputStream reporte = reporteSquadron.creaPDF2(tareaAlumnoSesionBean.busca(UUID.fromString("561ee273-db1e-4952-88c2-ae67f3ac50c1")));
-        List<UUID> idGrupos = new ArrayList<>();
-        idGrupos.add(UUID.fromString(grupo));
-        ByteArrayOutputStream reporte = reporteSquadron.creaPDF2(tareaAlumnoSesionBean.busca(UUID.fromString(grupo)), tareaAlumnoSesionBean.buscaProfesor(UUID.fromString(grupo)), tareaAlumnoSesionBean.buscaGrupo(idGrupos).get(0));
-        //ByteArrayOutputStream reporte = reporteSquadron.creaPDFDatosSesionGrupo();
+    protected void  doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        String idGrupos = (String)httpServletRequest.getParameter("grupos");
+        List<UUID> idGrupoLista = new ArrayList<>();
+        String[] grupos = idGrupos.split(",");
+        if(grupos.length <= 1){
+            idGrupoLista.add(UUID.fromString(idGrupos));
+        }else{
+            for (int i = 0; i < grupos.length; i++) {
+                idGrupoLista.add(UUID.fromString(grupos[i]));
+            }
+        }
+        ByteArrayOutputStream reporte = reporteSquadron.creaPDF1(tareaAlumnoSesionBean.busca(idGrupoLista), tareaAlumnoSesionBean.buscaGrupo(idGrupoLista), tareaAlumnoSesionBean.buscaProfesor(idGrupoLista.get(0)));
         httpServletResponse.setContentType("application/pdf");
         httpServletResponse.setHeader("Expires","0");
         httpServletResponse.setHeader("Cache-Control","must-revalidate, post-check=0, pre-check=0");
-        httpServletResponse.setHeader("Content-Disposition", "attachment; filename=ImportLog.pdf");
+        httpServletResponse.setHeader("Content-Disposition", "attachment; filename=Group_Information.pdf");
         httpServletResponse.setContentLength(reporte.size());
         OutputStream outputStream = httpServletResponse.getOutputStream();
         reporte.writeTo(outputStream);
         outputStream.flush();
         outputStream.close();
     }
-
 }

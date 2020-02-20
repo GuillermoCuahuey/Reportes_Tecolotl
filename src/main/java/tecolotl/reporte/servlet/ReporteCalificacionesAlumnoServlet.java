@@ -29,16 +29,16 @@ public class ReporteCalificacionesAlumnoServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException{
-        List<UUID> idGrupoLista = new ArrayList<>();
-        //idGrupoLista.add(UUID.fromString("fc469982-5c2c-4821-b22e-c3b0f52c19d6"));
+        String grupo = (String)httpServletRequest.getParameter("grupo");
+        String alumno = (String) httpServletRequest.getParameter("alumno");
         ByteArrayOutputStream reporte = reporteSquadron.creaPDF3(
-                tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString("041bb886-bfb4-4b66-8a0f-464a70fd4de9")), tareaAlumnoSesionBean.buscaProfesor(UUID.fromString("fc469982-5c2c-4821-b22e-c3b0f52c19d6"))
+                tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString(alumno)), tareaAlumnoSesionBean.buscaProfesor(UUID.fromString(grupo))
         );
-        System.out.println(tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString("041bb886-bfb4-4b66-8a0f-464a70fd4de9")).toString());
+        //System.out.println(tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString("041bb886-bfb4-4b66-8a0f-464a70fd4de9")).toString());
         httpServletResponse.setContentType("application/pdf");
         httpServletResponse.setHeader("Expires","0");
         httpServletResponse.setHeader("Cache-Control","must-revalidate, post-check=0, pre-check=0");
-        httpServletResponse.setHeader("Content-Disposition", "attachment; filename=ImportLog.pdf");
+        httpServletResponse.setHeader("Content-Disposition", "attachment; filename=Individual_Score.pdf");
         httpServletResponse.setContentLength(reporte.size());
         OutputStream outputStream = httpServletResponse.getOutputStream();
         reporte.writeTo(outputStream);

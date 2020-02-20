@@ -1,6 +1,5 @@
 package tecolotl.reporte.servlet;
 
-import org.jboss.logging.Logger;
 import tecolotl.reporte.pdf.ReporteSquadron;
 import tecolotl.reporte.sesion.TareaAlumnoSesionBean;
 
@@ -28,13 +27,11 @@ public class ReporteDatosAlumnosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         String grupo = (String) httpServletRequest.getParameter("grupo");
-        //ByteArrayOutputStream reporte = reporteSquadron.creaPDF2(tareaAlumnoSesionBean.busca(UUID.fromString("561ee273-db1e-4952-88c2-ae67f3ac50c1")));
         ByteArrayOutputStream reporte = reporteSquadron.creaPDFDatosSesionGrupo(tareaAlumnoSesionBean.buscaDatosSesionAlumno(UUID.fromString(grupo)));
-        //ByteArrayOutputStream reporte = reporteSquadron.creaPDFDatosSesionGrupo();
         httpServletResponse.setContentType("application/pdf");
         httpServletResponse.setHeader("Expires","0");
         httpServletResponse.setHeader("Cache-Control","must-revalidate, post-check=0, pre-check=0");
-        httpServletResponse.setHeader("Content-Disposition", "attachment; filename=ImportLog.pdf");
+        httpServletResponse.setHeader("Content-Disposition", "attachment; filename=Login_Information.pdf");
         httpServletResponse.setContentLength(reporte.size());
         OutputStream outputStream = httpServletResponse.getOutputStream();
         reporte.writeTo(outputStream);

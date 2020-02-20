@@ -23,6 +23,7 @@ import sun.nio.ch.IOUtil;
 import tecolotl.reporte.modelo.*;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -31,9 +32,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @Stateless
 public class ReporteSquadron {
+    private Logger logger = Logger.getLogger(getClass().getName());
+
     public ReporteSquadron() {
     }
 
@@ -78,8 +82,9 @@ public class ReporteSquadron {
                 }
             }
         }catch (Exception e){
-            System.out.println(e.getMessage()+"    "+ e.toString()+"    " +e.getCause());
-            System.out.println(tareasResueltasModeloLista.toString());
+            logger.severe("Ocurrio un error: ".concat(e.getMessage()));
+            logger.severe("Ocurrio por las siguientes razones:  ".concat(e.getCause().toString()));
+            logger.severe("Error:  ".concat(e.toString()));
         }
         return byteArrayOutputStream;
     }
@@ -119,7 +124,9 @@ public class ReporteSquadron {
                 documento.add(tablaGrupoAlumnosPDF.creaTabla(documentoPdf,tareaAlumnoGrupoModeloList2));
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            logger.severe("Ocurrio un error: ".concat(e.getMessage()));
+            logger.severe("Ocurrio por las siguientes razones:  ".concat(e.getCause().toString()));
+            logger.severe("Error:  ".concat(e.toString()));
         }
         return byteArrayOutputStream;
     }
@@ -144,7 +151,9 @@ public class ReporteSquadron {
             documento.add(datosUsuarioPDF.creaDatosEncabezado(datosProfesorModelo,documentoPdf));
             documento.add(tablaAlumnoCalificacionesPDF.creaTabla(documentoPdf, tareaAlumnoModeloLista));
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            logger.severe("Ocurrio un error: ".concat(e.getMessage()));
+            logger.severe("Ocurrio por las siguientes razones:  ".concat(e.getCause().toString()));
+            logger.severe("Error:  ".concat(e.toString()));
         }
         return byteArrayOutputStream;
     }
@@ -186,14 +195,17 @@ public class ReporteSquadron {
                 }
             }
         }catch (Exception e){
-            System.out.println(e.getMessage()+"  "+e.getCause()+"    "+e.toString());
+            logger.severe("Ocurrio un error: ".concat(e.getMessage()));
+            logger.severe("Ocurrio por las siguientes razones:  ".concat(e.getCause().toString()));
+            logger.severe("Error:  ".concat(e.toString()));
         }
         return byteArrayOutputStream;
     }
 
     private void crearFondo(PdfDocument pdfDocument) throws IOException{
         PdfExtGState pdfExtGState = new PdfExtGState().setFillOpacity(0.5f);
-        ImageData imageData = ImageDataFactory.create("C:\\Users\\Cavaliere\\Documents\\FONDO.png");
+        ///ImageData imageData = ImageDataFactory.create("C:\\Users\\Cavaliere\\Documents\\FONDO.png");
+        ImageData imageData = ImageDataFactory.create(new URL("https","tecolotl-multimedia.nyc3.digitaloceanspaces.com", "/Tecolotl/REPORTE_PDF/imagenesStorage/FONDO.png"));
         PdfCanvas pdfCanvas= new PdfCanvas(pdfDocument.addNewPage());
         pdfCanvas.saveState();
         pdfCanvas.setExtGState(pdfExtGState);
