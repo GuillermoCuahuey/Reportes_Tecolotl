@@ -59,27 +59,18 @@ public class ReporteSquadron {
             TablaGruposPDF tablaGruposPDF = new TablaGruposPDF();
             DatosUsuarioPDF datosUsuarioPDF = new DatosUsuarioPDF();
             documento.add(datosUsuarioPDF.creaDatosEncabezado(datosProfesorModelo ,documentoPdf));
-            //documento.add(tablaGruposPDF.creaTabla(tareasResueltasModeloLista));
-            UUID aux = tareasResueltasModeloLista.get(0).getIdGrupo();
-            List<Integer[]> posiciones =  new ArrayList<>();
-            int posicion = 0;
-            for (TareasResueltasModelo tareasResueltasModelo : tareasResueltasModeloLista){
-                //System.out.println(tareasResueltasModelo.toString());
-                if (!aux.equals(tareasResueltasModelo.getIdGrupo())){
-                    aux = tareasResueltasModelo.getIdGrupo();
-                    posiciones.add(new Integer[]{posicion, tareasResueltasModeloLista.indexOf(tareasResueltasModelo)+1});
-                    posicion = tareasResueltasModeloLista.indexOf(tareasResueltasModelo);
+            int contador = 0;
+            for (GrupoModelo grupoModelo : grupoModeloLista){
+                List<TareasResueltasModelo> auxTareasResuetas = new ArrayList<>();
+                for(TareasResueltasModelo tareasResueltasModelo: tareasResueltasModeloLista){
+                    if(grupoModelo.getId().equals(tareasResueltasModelo.getIdGrupo())){
+                        auxTareasResuetas.add(tareasResueltasModelo);
+                    }
                 }
-            }
-            int j = 0;
-            if(posiciones.size() == 0  || posiciones.size() == 1){
-                this.agregaDatos(documento, documentoPdf, tareasResueltasModeloLista, grupoModeloLista, tablaGruposPDF, j);
-            }{
-                for (Integer[] pos: posiciones){
-                    List<TareasResueltasModelo> splitLista = tareasResueltasModeloLista.subList(pos[0], pos[1]);
-                    this.agregaDatos(documento, documentoPdf, splitLista, grupoModeloLista, tablaGruposPDF, j);
-                    j++;
+                if(auxTareasResuetas.size() != 0 ){
+                    this.agregaDatos(documento, documentoPdf, auxTareasResuetas, grupoModelo, tablaGruposPDF, contador);
                 }
+                contador+=1;
             }
         }catch (Exception e){
             logger.severe("Ocurrio un error: ".concat(e.getMessage()));
@@ -213,19 +204,25 @@ public class ReporteSquadron {
         pdfCanvas.restoreState();
     }
 
-    private void agregaDatos(Document documento, PdfDocument pdf, List<TareasResueltasModelo> tareasResueltasModeloLista, List<GrupoModelo> grupoModeloLista, TablaGruposPDF tablaGruposPDF, int j) throws IOException{
+    private void agregaDatos(Document documento, PdfDocument pdf, List<TareasResueltasModelo> tareasResueltasModeloLista, GrupoModelo grupoModelo, TablaGruposPDF tablaGruposPDF, int contador) throws IOException{
         if(tareasResueltasModeloLista.size() <= 30){
-            documento.add(tablaGruposPDF.creaTabla(tareasResueltasModeloLista, grupoModeloLista.get(j)));
+            if(contador != 0){
+                this.crearFondo(pdf);
+                documento.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                documento.add(tablaGruposPDF.creaTabla(tareasResueltasModeloLista, grupoModelo));
+            }else{
+                documento.add(tablaGruposPDF.creaTabla(tareasResueltasModeloLista, grupoModelo));
+            }
         }else {
             for (int i = 0; i < tareasResueltasModeloLista.size(); i+=30) {
                 if(i <= (tareasResueltasModeloLista.size() - 30)){
                     List<TareasResueltasModelo> datosSplit = tareasResueltasModeloLista.subList(i,i+30);
-                    documento.add(tablaGruposPDF.creaTabla(datosSplit, grupoModeloLista.get(j)));
+                    documento.add(tablaGruposPDF.creaTabla(datosSplit, grupoModelo));
                     this.crearFondo(pdf);
                     documento.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                 }else{
                     List<TareasResueltasModelo> datosSplit = tareasResueltasModeloLista.subList(i,tareasResueltasModeloLista.size());
-                    documento.add(tablaGruposPDF.creaTabla(datosSplit, grupoModeloLista.get(j)));
+                    documento.add(tablaGruposPDF.creaTabla(datosSplit, grupoModelo));
                     break;
                 }
             }

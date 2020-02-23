@@ -13,10 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Stateless
 public class TareaAlumnoSesionBean {
+
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     @PersistenceContext(unitName = "reportes")
     private EntityManager entityManager;
@@ -38,7 +41,7 @@ public class TareaAlumnoSesionBean {
      * @return Coleccion {@link TareasResueltasModelo}
      */
     public List<TareasResueltasModelo> busca(@NotNull @Size(min = 1) List<UUID> idGrupoLista){
-        Query query = entityManager.createNativeQuery("SELECT * FROM profesor.busca_tareas_resueltas(CAST (? AS uuid[]))");
+        Query query = entityManager.createNativeQuery("SELECT * FROM profesor.busca_tareas_resueltas(CAST (? AS uuid[])) order by id_grupo");
         final StringJoiner stringJoiner = new StringJoiner(",", "{", "}");
         idGrupoLista.forEach(grupo -> stringJoiner.add(grupo.toString()));
         query.setParameter(1,stringJoiner.toString());
@@ -90,7 +93,9 @@ public class TareaAlumnoSesionBean {
     public DatosProfesorModelo buscaProfesor(@NotNull UUID idGrupo){
         Query query = entityManager.createNativeQuery("SELECT * from profesor.datos_profesor(?)", DatosProfesorEntidad.class);
         query.setParameter(1, idGrupo);
-        return ((List<DatosProfesorEntidad>)query.getResultList()).stream().map(DatosProfesorModelo::new).collect(Collectors.toList()).get(0);
+        List<DatosProfesorEntidad> datosProfesorEntidadLista= query.getResultList();
+        List<DatosProfesorModelo> datosProfesorModeloLista = datosProfesorEntidadLista.stream().map(DatosProfesorModelo::new).collect(Collectors.toList());
+        return datosProfesorModeloLista.get(0);
     }
 
     /**

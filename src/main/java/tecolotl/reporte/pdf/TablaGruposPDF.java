@@ -26,9 +26,9 @@ public class TablaGruposPDF {
         tabla .addCell(this.crearCampo(1,4)
                 .add(
                         new Paragraph("Group  "
-                                .concat(String.valueOf(grupoModelo.getGrado())
-                                        .concat("th ")
-                                        .concat(String.valueOf(grupoModelo.getGrupo()))))
+                                .concat(this.tipoGrado(grupoModelo.getGrado()))
+                                .concat(" ")
+                                .concat(String.valueOf(grupoModelo.getGrupo())))
                                 .setFontColor(color4)
                 )
         );
@@ -153,5 +153,28 @@ public class TablaGruposPDF {
             tam = 0;
         }
         return tam;
+    }
+
+    private String tipoGrado(Short grado){
+        String grados = "";
+        switch (String.valueOf(grado)){
+            case "1":{
+                grados = "1st";
+                break;
+            }
+            case "2":{
+                grados = "2nd";
+                break;
+            }
+            case "3":{
+                grados = "3rd";
+                break;
+            }
+            default:{
+                grados = String.valueOf(grado).concat("th");
+                break;
+            }
+        }
+        return grados;
     }
 }

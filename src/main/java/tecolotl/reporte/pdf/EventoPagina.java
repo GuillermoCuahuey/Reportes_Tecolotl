@@ -75,6 +75,7 @@ public class EventoPagina implements IEventHandler {
                                                     new Image(ImageDataFactory.create(new URL("https", "tecolotl-multimedia.nyc3.digitaloceanspaces.com", "/Tecolotl/REPORTE_PDF/imagenesStorage/esq.png")))
                                                             .setHeight(30).setWidth(150).setBorderBottom(new SolidBorder(color1, 1))
                                             ).add("\nwww.e-squadron.com.mx")
+                                    .setMarginLeft(43)
                             )
             );
             tablaPie.addCell(
