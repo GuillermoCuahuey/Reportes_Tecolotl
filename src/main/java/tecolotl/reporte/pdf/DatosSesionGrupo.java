@@ -16,8 +16,10 @@ import tecolotl.reporte.modelo.DatosAlumnoModelo;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 public class DatosSesionGrupo {
@@ -115,7 +117,7 @@ public class DatosSesionGrupo {
         return tabla;
     }
 
-    private Table creaTabla2(String dato, String pass1, String pass2, PdfDocument pdf) throws IOException, URISyntaxException{
+    private Table creaTabla2(String dato, String pass1, String pass2, PdfDocument pdf) throws IOException{
         Table tabla = new Table(2);
         tabla.addCell(
                 new Cell(4,1).setBorder(Border.NO_BORDER)
@@ -163,10 +165,11 @@ public class DatosSesionGrupo {
         return celda;
     }
 
-    private Image passImg(String pass, PdfDocument pdf) throws IOException, URISyntaxException {
-        File svgImagen;
-        svgImagen = new File(new URL("https", "tecolotl-multimedia.nyc3.digitaloceanspaces.com", "/Tecolotl/REPORTE_PDF/imagenesStorage/".concat(String.valueOf((Integer.parseInt(pass)+1))).concat(".svg")).toURI());
-        Image imagen = SvgConverter.convertToImage(svgImagen.toURI().toURL().openStream(), pdf);
+    private Image passImg(String pass, PdfDocument pdf) throws IOException{
+        URL urlSvg = new URL("https", "tecolotl-multimedia.nyc3.digitaloceanspaces.com", "/Tecolotl/REPORTE_PDF/imagenesStorage/".concat(String.valueOf((Integer.parseInt(pass)+1))).concat(".svg"));
+        URLConnection connection = urlSvg.openConnection();
+        InputStream inputStream = connection.getInputStream();
+        Image imagen = SvgConverter.convertToImage(inputStream, pdf);
         imagen.setWidth(30);
         imagen.setHeight(30);
         return imagen;

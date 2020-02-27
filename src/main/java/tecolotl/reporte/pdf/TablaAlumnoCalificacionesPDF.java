@@ -26,11 +26,11 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.InputStream;
+import java.net.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class TablaAlumnoCalificacionesPDF {
@@ -48,10 +48,10 @@ public class TablaAlumnoCalificacionesPDF {
     public Table creaTabla(PdfDocument pdf, List<TareaAlumnoModelo> tareaAlumnoModeloLista) throws IOException, URISyntaxException {
         Table tabla = new Table(9);
         Cell celda = this.crearCampo(1, 9);
-        celda.add(new Paragraph("Filtros").setFontColor(ColorConstants.WHITE));
+        celda.add(new Paragraph("Filters").setFontColor(ColorConstants.WHITE));
         tabla.addCell(celda);
-        tabla.addCell(this.crearCampo("Tarea", 1,1, color2));
-        tabla.addCell(this.crearCampo("Asginacion", 1,1, color2));
+        tabla.addCell(this.crearCampo("Homework", 1,1, color2));
+        tabla.addCell(this.crearCampo("Assigment", 1,1, color2));
         tabla.addCell(this.crearCampo("Transcript", 1,1, color2));
         tabla.addCell(this.crearCampo("Word Game", 1,1, color2));
         tabla.addCell(this.crearCampo("Think-Develop\nand Share", 1,1, color2));
@@ -62,7 +62,7 @@ public class TablaAlumnoCalificacionesPDF {
         for (TareaAlumnoModelo tareaAlumnoModelo : tareaAlumnoModeloLista){
             tabla.addCell(this.tareaImagen(tareaAlumnoModelo.getIdActividad()));
             tabla.addCell(
-                    this.crearCampo(String.valueOf(tareaAlumnoModelo.getFechaAsignacion()), 1, 1, color3));
+                    this.crearCampo(new SimpleDateFormat("YYYY-MM-DD").format(tareaAlumnoModelo.getFechaAsignacion()), 1, 1, color3));
             tabla.addCell(
                     this.crearCampo(String.valueOf(tareaAlumnoModelo.getCalificacionTrascirpcion()).concat("%\n"), 1, 1, color4, tareaAlumnoModelo.getCalificacionTrascirpcion(),pdf));
             tabla.addCell(
@@ -103,7 +103,7 @@ public class TablaAlumnoCalificacionesPDF {
         return celda;
     }
 
-    private Paragraph opciones(String valor, Short puntaje, PdfDocument pdf) throws IOException, URISyntaxException{
+    private Paragraph opciones(String valor, Short puntaje, PdfDocument pdf) throws IOException{
         Paragraph nuevoValor;
         try{
             if(puntaje == (short)-1){
@@ -117,7 +117,7 @@ public class TablaAlumnoCalificacionesPDF {
         return nuevoValor;
     }
 
-    private Cell crearCampo(String valorCampo, int rowSpan, int colSpan, DeviceCmyk color) throws IOException {
+    private Cell crearCampo(String valorCampo, int rowSpan, int colSpan, DeviceCmyk color) {
         Cell celda = new Cell(rowSpan,colSpan)
                 .setTextAlignment(TextAlignment.CENTER)
                 .setBackgroundColor(color, 0.1f)
@@ -193,11 +193,10 @@ public class TablaAlumnoCalificacionesPDF {
      * @return una imagen.
      * @throws IOException
      */
-    private Image creaImagen(URL urlArchivo, PdfDocument pdf) throws IOException, URISyntaxException{
-        File svg;
-        svg = new File(urlArchivo.toURI());
-        Image imgSVG = SvgConverter.convertToImage(svg.toURI().toURL().openStream(), pdf);
-        imgSVG.setMarginLeft(15);
+    private Image creaImagen(URL urlArchivo, PdfDocument pdf) throws IOException{
+        URLConnection connection = urlArchivo.openConnection();
+        InputStream inputStream = connection.getInputStream();
+        Image imgSVG = SvgConverter.convertToImage(inputStream, pdf);
         return imgSVG;
     }
 
@@ -214,7 +213,7 @@ public class TablaAlumnoCalificacionesPDF {
         float valor = ((50 * progressBarSize) / 100f);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        Document document = documentBuilder.parse(new File(new URL("https","tecolotl-multimedia.nyc3.digitaloceanspaces.com","/Tecolotl/REPORTE_PDF/imagenesStorage/recta.svg").toURI()));
+        Document document = documentBuilder.parse(new URL("https","tecolotl-multimedia.nyc3.digitaloceanspaces.com","/Tecolotl/REPORTE_PDF/imagenesStorage/recta.svg").openConnection().getInputStream());
         NodeList elementos = document.getElementsByTagName("rect");
         for (int i = 0; i < elementos.getLength(); i++) {
             Element el = (Element) elementos.item(i);

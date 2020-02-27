@@ -22,28 +22,22 @@ public class TablaGrupoAlumnosPDF {
     private final DeviceRgb color4 = new DeviceRgb(255,255,255);
     /**
      * Metodo que crea una tabla
-     * @param pdf objeto del tipo {@link PdfDocument}
      * @return una Tabla con los valores correspondientes.
      * @throws Exception
      */
-    public Table creaTabla(PdfDocument pdf, List<TareaAlumnoGrupoModelo> tareaAlumnoGrupoModeloList) throws Exception {
+    public Table creaTabla(List<TareaAlumnoGrupoModelo> tareaAlumnoGrupoModeloList){
         float[] colWidths = {2, 1, 1, 1, 1, 1, 1, 1};
         Table tabla = new Table(colWidths);
         Cell celda = this.crearCampo(1, 9);
-        celda.add(new Paragraph("Alumno de la clase").setFontColor(color4));
+        celda.add(new Paragraph("Students").setFontColor(color4));
         tabla.addCell(celda);
-        tabla.addCell(this.crearCampo("Nombre", 1, 2,color2));
+        tabla.addCell(this.crearCampo("Full Name", 1, 2,color2));
         tabla.addCell(this.crearCampo("Think-Develop and Share", 1, 1,color2));
         tabla.addCell(this.crearCampo("Word Game", 1, 1,color2));
         tabla.addCell(this.crearCampo("Mix & Match", 1, 1,color2));
         tabla.addCell(this.crearCampo("What Happened?", 1, 1,color2));
         tabla.addCell(this.crearCampo("Comprehesion Match", 1, 1,color2));
         tabla.addCell(this.crearCampo("Gap Filling", 1, 1,color2));
-        /*File svg;
-        svg = new File("forbidden.svg");
-        Image imgSVG = SvgConverter.convertToImage(svg.toURI().toURL().openStream(), pdf);
-        imgSVG.setWidth(10).setHeight(10);
-         */
         for (TareaAlumnoGrupoModelo tareaAlumnoGrupoModelo : tareaAlumnoGrupoModeloList){
             tabla.addCell(this.crearCampo(
                     tareaAlumnoGrupoModelo.getNombre().concat(" ")

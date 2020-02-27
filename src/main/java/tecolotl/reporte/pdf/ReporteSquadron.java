@@ -105,14 +105,14 @@ public class ReporteSquadron {
             documento.add(datosUsuarioPDF.creaDatosEncabezado(datosProfesorModelo,documentoPdf));
             int tam = tareaAlumnoGrupoModeloList.size();
             if(tam <=30){
-                documento.add(tablaGrupoAlumnosPDF.creaTabla(documentoPdf,tareaAlumnoGrupoModeloList));
+                documento.add(tablaGrupoAlumnosPDF.creaTabla(tareaAlumnoGrupoModeloList));
             }else {
                 List<TareaAlumnoGrupoModelo> tareaAlumnoGrupoModeloList1 = tareaAlumnoGrupoModeloList.subList(0,30);
                 List<TareaAlumnoGrupoModelo>  tareaAlumnoGrupoModeloList2 = tareaAlumnoGrupoModeloList.subList(30,tam);
-                documento.add(tablaGrupoAlumnosPDF.creaTabla(documentoPdf,tareaAlumnoGrupoModeloList1));
+                documento.add(tablaGrupoAlumnosPDF.creaTabla(tareaAlumnoGrupoModeloList1));
                 this.crearFondo(documentoPdf);
                 documento.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                documento.add(tablaGrupoAlumnosPDF.creaTabla(documentoPdf,tareaAlumnoGrupoModeloList2));
+                documento.add(tablaGrupoAlumnosPDF.creaTabla(tareaAlumnoGrupoModeloList2));
             }
         }catch (Exception e){
             logger.severe("Ocurrio un error: ".concat(e.getMessage()));
