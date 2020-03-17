@@ -91,10 +91,12 @@ public class TareaAlumnoSesionBean {
      * @return datos de {@link DatosProfesorModelo}
      */
     public DatosProfesorModelo buscaProfesor(@NotNull UUID idGrupo){
+        logger.info("Id del grupo: ".concat(idGrupo.toString()));
         Query query = entityManager.createNativeQuery("SELECT * from profesor.datos_profesor(?)", DatosProfesorEntidad.class);
         query.setParameter(1, idGrupo);
         List<DatosProfesorEntidad> datosProfesorEntidadLista= query.getResultList();
         List<DatosProfesorModelo> datosProfesorModeloLista = datosProfesorEntidadLista.stream().map(DatosProfesorModelo::new).collect(Collectors.toList());
+        logger.info(datosProfesorEntidadLista.toString());
         return datosProfesorModeloLista.get(0);
     }
 
