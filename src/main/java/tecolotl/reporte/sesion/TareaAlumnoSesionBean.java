@@ -96,7 +96,8 @@ public class TareaAlumnoSesionBean {
         query.setParameter(1, idGrupo);
         List<DatosProfesorEntidad> datosProfesorEntidadLista= query.getResultList();
         List<DatosProfesorModelo> datosProfesorModeloLista = datosProfesorEntidadLista.stream().map(DatosProfesorModelo::new).collect(Collectors.toList());
-        logger.info(datosProfesorEntidadLista.toString());
+        logger.info("Datos del profesor entidad: ".concat(datosProfesorEntidadLista.toString()));
+        logger.info("Datos del profesor modelo: ".concat(datosProfesorModeloLista.toString()));
         return datosProfesorModeloLista.get(0);
     }
 
