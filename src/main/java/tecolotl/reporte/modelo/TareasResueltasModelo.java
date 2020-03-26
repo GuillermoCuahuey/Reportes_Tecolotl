@@ -13,7 +13,6 @@ public class TareasResueltasModelo {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private UUID idTarea;
     private Integer totalTareas;
     private String  nivelLenguaje;
 
@@ -27,7 +26,6 @@ public class TareasResueltasModelo {
         this.nombre = tareasResueltasEntidad.getNombre();
         this.apellidoPaterno = tareasResueltasEntidad.getApellidoP();
         this.apellidoMaterno = tareasResueltasEntidad.getApellidoM();
-        this.idTarea = tareasResueltasEntidad.getIdTarea();
         this.totalTareas = tareasResueltasEntidad.getTotalTareas();
         this.nivelLenguaje = tareasResueltasEntidad.getNivelLenguaje();
     }
@@ -80,14 +78,6 @@ public class TareasResueltasModelo {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public UUID getIdTarea() {
-        return idTarea;
-    }
-
-    public void setIdTarea(UUID idTarea) {
-        this.idTarea = idTarea;
-    }
-
     public Integer getTotalTareas() {
         return totalTareas;
     }
@@ -113,7 +103,6 @@ public class TareasResueltasModelo {
                 .add("nombre='" + nombre + "'")
                 .add("apellidoPaterno='" + apellidoPaterno + "'")
                 .add("apellidoMaterno='" + apellidoMaterno + "'")
-                .add("idTarea=" + idTarea)
                 .add("totalTareas=" + totalTareas)
                 .add("nivelLenguaje='" + nivelLenguaje + "'")
                 .toString();

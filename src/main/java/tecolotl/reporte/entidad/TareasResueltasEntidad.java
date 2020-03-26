@@ -15,7 +15,6 @@ import java.util.UUID;
                                 @FieldResult(name = "nombre", column = "nombre"),
                                 @FieldResult(name = "apellido_paterno", column = "apellidoPaterno"),
                                 @FieldResult(name = "apellido_materno", column = "apellidoMaterno"),
-                                @FieldResult(name = "id_tarea", column = "idTarea"),
                                 @FieldResult(name = "total_tareas_resueltas", column = "totalTareasResueltas"),
                                 @FieldResult(name = "nivel_lenguaje", column = "nivelLenguaje"),
                         }
@@ -30,21 +29,19 @@ public class TareasResueltasEntidad {
     private String nombre;
     private String apellidoP;
     private String apellidoM;
-    private UUID idTarea;
     private Integer totalTareas;
     private String nivelLenguaje;
 
     public TareasResueltasEntidad() {
     }
 
-    public TareasResueltasEntidad(UUID idGrupo, UUID idAlumno, Short nivelLenguajeAlumno, String nombre, String apellidoP, String apellidoM, UUID idTarea, Integer totalTareas, String nivelLenguaje) {
+    public TareasResueltasEntidad(UUID idGrupo, UUID idAlumno, Short nivelLenguajeAlumno, String nombre, String apellidoP, String apellidoM, Integer totalTareas, String nivelLenguaje) {
         this.idGrupo = idGrupo;
         this.idAlumno = idAlumno;
         this.nivelLenguajeAlumno = nivelLenguajeAlumno;
         this.nombre = nombre;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
-        this.idTarea = idTarea;
         this.totalTareas = totalTareas;
         this.nivelLenguaje = nivelLenguaje;
     }
@@ -111,16 +108,6 @@ public class TareasResueltasEntidad {
     }
 
     @Basic
-    @Column(name = "id_tarea")
-    public UUID getIdTarea() {
-        return idTarea;
-    }
-
-    public void setIdTarea(UUID idTarea) {
-        this.idTarea = idTarea;
-    }
-
-    @Basic
     @Column(name = "total_tareas_resueltas")
     public Integer getTotalTareas() {
         return totalTareas;
@@ -153,14 +140,13 @@ public class TareasResueltasEntidad {
                 nombre.equals(that.nombre) &&
                 apellidoP.equals(that.apellidoP) &&
                 apellidoM.equals(that.apellidoM) &&
-                idTarea.equals(that.idTarea) &&
                 totalTareas.equals(that.totalTareas) &&
                 nivelLenguaje.equals(that.nivelLenguaje);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idGrupo, idAlumno, nivelLenguajeAlumno, nombre, apellidoP, apellidoM, idTarea, totalTareas, nivelLenguaje);
+        return Objects.hash(idGrupo, idAlumno, nivelLenguajeAlumno, nombre, apellidoP, apellidoM, totalTareas, nivelLenguaje);
     }
 
     @Override
@@ -172,7 +158,6 @@ public class TareasResueltasEntidad {
                 .add("nombre='" + nombre + "'")
                 .add("apellidoP='" + apellidoP + "'")
                 .add("apellidoM='" + apellidoM + "'")
-                .add("idTarea=" + idTarea)
                 .add("totalTareas=" + totalTareas)
                 .add("nivelLenguaje='" + nivelLenguaje + "'")
                 .toString();
