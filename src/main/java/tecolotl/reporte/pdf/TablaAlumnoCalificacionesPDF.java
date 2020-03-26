@@ -32,8 +32,10 @@ import java.io.InputStream;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class TablaAlumnoCalificacionesPDF {
+    private Logger logger = Logger.getLogger(getClass().getName());
     private final DeviceCmyk color1 = new DeviceCmyk(75,100,0,0);
     private final DeviceCmyk color2 = new DeviceCmyk(22.27f, 17.97f, 24.61f, 0);
     private final DeviceCmyk color3 = new DeviceCmyk(8,7,7,0);

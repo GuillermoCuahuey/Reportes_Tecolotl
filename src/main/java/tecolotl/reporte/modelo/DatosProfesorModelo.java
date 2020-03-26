@@ -21,7 +21,7 @@ public class DatosProfesorModelo {
         this.correo = datosProfesorEntidad.getCorreo();
     }
 
-    public UUID Id() {
+    public UUID getId() {
         return id;
     }
 

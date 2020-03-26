@@ -93,7 +93,7 @@ public class ReporteSquadron {
                     documento.getBottomMargin()-75,
                     documento.getLeftMargin()-10);
             documento.add(
-                    new Paragraph("Activity Report Grupo"
+                    new Paragraph("Activity Report Group"
                             .concat(String.valueOf(grupoModelo.getGrado()))
                             .concat(" \"")
                             .concat(String.valueOf(grupoModelo.getGrupo()))
@@ -135,7 +135,7 @@ public class ReporteSquadron {
                     documento.getBottomMargin()-75,
                     documento.getLeftMargin()-10);
             EventoPagina evento = new EventoPagina(documento, documentoPdf);
-            documento.add(new Paragraph("Student Juanito Activities Report").setTextAlignment(TextAlignment.CENTER).setMinWidth(50).setFontSize(20).setMarginBottom(20));
+            documento.add(new Paragraph("Student Activities Report").setTextAlignment(TextAlignment.CENTER).setMinWidth(50).setFontSize(20).setMarginBottom(20));
             documentoPdf.addEventHandler(PdfDocumentEvent.END_PAGE, evento);
             DatosUsuarioPDF datosUsuarioPDF = new DatosUsuarioPDF();
             TablaAlumnoCalificacionesPDF tablaAlumnoCalificacionesPDF = new TablaAlumnoCalificacionesPDF();

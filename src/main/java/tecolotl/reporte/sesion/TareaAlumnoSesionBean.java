@@ -41,7 +41,7 @@ public class TareaAlumnoSesionBean {
      * @return Coleccion {@link TareasResueltasModelo}
      */
     public List<TareasResueltasModelo> busca(@NotNull @Size(min = 1) List<UUID> idGrupoLista){
-        Query query = entityManager.createNativeQuery("SELECT * FROM profesor.busca_tareas_resueltas(CAST (? AS uuid[])) order by id_grupo");
+        Query query = entityManager.createNativeQuery("SELECT * FROM profesor.busca_tareas_resueltas(CAST (? AS uuid[]))");
         final StringJoiner stringJoiner = new StringJoiner(",", "{", "}");
         idGrupoLista.forEach(grupo -> stringJoiner.add(grupo.toString()));
         query.setParameter(1,stringJoiner.toString());
