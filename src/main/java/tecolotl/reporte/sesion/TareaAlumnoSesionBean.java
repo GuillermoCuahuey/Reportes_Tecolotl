@@ -73,6 +73,14 @@ public class TareaAlumnoSesionBean {
         return ((List<TareaAlumnoEntidad>)query.getResultList()).stream().map(TareaAlumnoModelo::new).collect(Collectors.toList());
     }
 
+    public DatosAlumnoTareaModelo buscaAlumno(@NotNull UUID idAlumno){
+        Query query = entityManager.createNativeQuery("SELECT * from profesor.datos_alumno(?)", DatosAlumnoTareaEntidad.class);
+        query.setParameter(1,idAlumno);
+        List<DatosAlumnoTareaEntidad> datosAlumnoTareaEntidadLista = query.getResultList();
+        List<DatosAlumnoTareaModelo> datosAlumnoTareaModeloLista = datosAlumnoTareaEntidadLista.stream().map(DatosAlumnoTareaModelo::new).collect(Collectors.toList());
+        return datosAlumnoTareaModeloLista.get(0);
+    }
+
     /**
      *Busca los datos de sesion de los alumnos de un grupo.
      * @param idGrupo identificador del grupo.

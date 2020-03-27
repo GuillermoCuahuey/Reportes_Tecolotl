@@ -29,10 +29,9 @@ public class ReporteCalificacionesAlumnoServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException{
-        String grupo = (String)httpServletRequest.getParameter("grupo");
         String alumno = (String) httpServletRequest.getParameter("alumno");
         ByteArrayOutputStream reporte = reporteSquadron.creaPDF3(
-                tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString(alumno)), tareaAlumnoSesionBean.buscaProfesor(UUID.fromString(grupo))
+                tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString(alumno)), tareaAlumnoSesionBean.buscaAlumno(UUID.fromString(alumno))
         );
         //System.out.println(tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString("041bb886-bfb4-4b66-8a0f-464a70fd4de9")).toString());
         httpServletResponse.setContentType("application/pdf");

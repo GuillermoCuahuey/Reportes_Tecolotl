@@ -58,7 +58,7 @@ public class ReporteSquadron {
             documentoPdf.addEventHandler(PdfDocumentEvent.END_PAGE, evento);
             TablaGruposPDF tablaGruposPDF = new TablaGruposPDF();
             DatosUsuarioPDF datosUsuarioPDF = new DatosUsuarioPDF();
-            documento.add(datosUsuarioPDF.creaDatosEncabezado(datosProfesorModelo ,documentoPdf));
+            documento.add(datosUsuarioPDF.creaDatosEncabezado(datosProfesorModelo));
             int contador = 0;
             for (GrupoModelo grupoModelo : grupoModeloLista){
                 List<TareasResueltasModelo> auxTareasResuetas = new ArrayList<>();
@@ -102,7 +102,7 @@ public class ReporteSquadron {
                             .setTextAlignment(TextAlignment.CENTER).setMinWidth(50).setFontSize(20).setMarginBottom(20));
             TablaGrupoAlumnosPDF tablaGrupoAlumnosPDF = new TablaGrupoAlumnosPDF();
             DatosUsuarioPDF datosUsuarioPDF = new DatosUsuarioPDF();
-            documento.add(datosUsuarioPDF.creaDatosEncabezado(datosProfesorModelo,documentoPdf));
+            documento.add(datosUsuarioPDF.creaDatosEncabezado(datosProfesorModelo));
             int tam = tareaAlumnoGrupoModeloList.size();
             if(tam <=30){
                 documento.add(tablaGrupoAlumnosPDF.creaTabla(tareaAlumnoGrupoModeloList));
@@ -122,7 +122,7 @@ public class ReporteSquadron {
         return byteArrayOutputStream;
     }
 
-    public ByteArrayOutputStream creaPDF3(List<TareaAlumnoModelo> tareaAlumnoModeloLista, DatosProfesorModelo datosProfesorModelo) throws IOException {
+    public ByteArrayOutputStream creaPDF3(List<TareaAlumnoModelo> tareaAlumnoModeloLista, DatosAlumnoTareaModelo datosAlumnoTareaModelo) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         FontProgram fontProgram = FontProgramFactory.createFont("../fonts/Montserrat-Light.otf");
         PdfFont pdfFont = PdfFontFactory.createFont(fontProgram, PdfEncodings.UTF8,true);
@@ -139,7 +139,7 @@ public class ReporteSquadron {
             documentoPdf.addEventHandler(PdfDocumentEvent.END_PAGE, evento);
             DatosUsuarioPDF datosUsuarioPDF = new DatosUsuarioPDF();
             TablaAlumnoCalificacionesPDF tablaAlumnoCalificacionesPDF = new TablaAlumnoCalificacionesPDF();
-            documento.add(datosUsuarioPDF.creaDatosEncabezado(datosProfesorModelo,documentoPdf));
+            documento.add(datosUsuarioPDF.creaDatosEncabezado(datosAlumnoTareaModelo));
             documento.add(tablaAlumnoCalificacionesPDF.creaTabla(documentoPdf, tareaAlumnoModeloLista));
         }catch (Exception e){
             logger.severe("Ocurrio un error: ".concat(e.getMessage()));

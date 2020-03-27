@@ -9,8 +9,11 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
+import tecolotl.reporte.modelo.DatosAlumnoTareaModelo;
 import tecolotl.reporte.modelo.DatosProfesorModelo;
 
+import javax.management.loading.MLet;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class DatosUsuarioPDF {
@@ -22,34 +25,40 @@ public class DatosUsuarioPDF {
     /**
      * Crea el encabezado de los datos del profesor
      * @param datosProfesorModelo datos del profesor.
-     * @param pdf objeto del tipo {@link PdfDocument}
      * @return Tabla con los datos del profesor
      * @throws Exception
      */
-    public Table creaDatosEncabezado(DatosProfesorModelo datosProfesorModelo, PdfDocument pdf) throws Exception{
+    public Table creaDatosEncabezado(DatosProfesorModelo datosProfesorModelo) throws Exception{
+        return this.creaTabla(datosProfesorModelo.getNombreCompleto(), datosProfesorModelo.getApodo(), datosProfesorModelo.getCorreo());
+    }
+
+    public Table creaDatosEncabezado(DatosAlumnoTareaModelo datosAlumnoTareaModelo) throws Exception {
+        return this.creaTabla(datosAlumnoTareaModelo.getNombreCompleto(), datosAlumnoTareaModelo.getApodo(), datosAlumnoTareaModelo.getCorreo());
+    }
+    private Table creaTabla(String nombreCompleto, String apodo, String correo) throws MalformedURLException{
         Table tabla = new Table(new float[]{1,1});
         tabla.addCell(
                 new Cell(3,1)
-                .add(
-                        new Paragraph("").add(
-                                new Image(ImageDataFactory.create(new URL("https","tecolotl-multimedia.nyc3.digitaloceanspaces.com","/Tecolotl/REPORTE_PDF/imagenesStorage/profesor.png")))
-                                .setWidth(80)
-                                .setHeight(80)
-                        )
-                                .setTextAlignment(TextAlignment.RIGHT)
-                ).setBorder(Border.NO_BORDER));
+                        .add(
+                                new Paragraph("").add(
+                                        new Image(ImageDataFactory.create(new URL("https","tecolotl-multimedia.nyc3.digitaloceanspaces.com","/Tecolotl/REPORTE_PDF/imagenesStorage/profesor.png")))
+                                                .setWidth(80)
+                                                .setHeight(80)
+                                )
+                                        .setTextAlignment(TextAlignment.RIGHT)
+                        ).setBorder(Border.NO_BORDER));
         tabla.addCell(
                 new Cell(1,1).add(
                         new Table(2)
                                 .addCell(
-                                    new Cell(1,1)
-                                    .add(
-                                        new Paragraph("Nombre: ").setFontColor(color1)
-                                    ).setBorder(Border.NO_BORDER)
+                                        new Cell(1,1)
+                                                .add(
+                                                        new Paragraph("Nombre: ").setFontColor(color1)
+                                                ).setBorder(Border.NO_BORDER)
                                 )
                                 .addCell(
                                         new Cell(1,1)
-                                                .add(new Paragraph(datosProfesorModelo.getNombreCompleto()).setFontColor(color2))
+                                                .add(new Paragraph(nombreCompleto).setFontColor(color2))
                                                 .setBorder(Border.NO_BORDER)
                                 ).setBorder(Border.NO_BORDER)
                 ).setBorder(Border.NO_BORDER)
@@ -65,7 +74,7 @@ public class DatosUsuarioPDF {
                                         ).setBorder(Border.NO_BORDER)
                                         .addCell(
                                                 new Cell(1,1)
-                                                        .add(new Paragraph(datosProfesorModelo.getApodo()).setFontColor(color2))
+                                                        .add(new Paragraph(apodo).setFontColor(color2))
                                                         .setBorder(Border.NO_BORDER)
                                         ).setBorder(Border.NO_BORDER)
                         ).setBorder(Border.NO_BORDER)
@@ -81,7 +90,7 @@ public class DatosUsuarioPDF {
                                         .setBorder(Border.NO_BORDER)
                                         .addCell(
                                                 new Cell(1,1)
-                                                        .add(new Paragraph(datosProfesorModelo.getCorreo()).setFontColor(color2))
+                                                        .add(new Paragraph(correo).setFontColor(color2))
                                                         .setBorder(Border.NO_BORDER))
                                         .setBorder(Border.NO_BORDER))
                         .setBorder(Border.NO_BORDER)
