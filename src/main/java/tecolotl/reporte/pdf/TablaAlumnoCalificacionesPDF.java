@@ -25,10 +25,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -132,16 +129,28 @@ public class TablaAlumnoCalificacionesPDF {
         return celda;
     }
 
-    private Cell tareaImagen(String idVideo) throws MalformedURLException {
+    private Cell tareaImagen(String idVideo) {
+        Image imagen = null;
+        Image imagenError = null;
+        try{
+            imagenError = new Image(
+                    ImageDataFactory.create(
+                            new URL("https","tecolotl-multimedia.nyc3.digitaloceanspaces.com","/Tecolotl/REPORTE_PDF/imagenesStorage/vacio.jpg")
+                    )).setWidth(50).setHeight(30).setBorder(Border.NO_BORDER);
+            imagen = new Image(
+                    ImageDataFactory.create(
+                            new URL("https","i.ytimg.com", "/vi/".concat(idVideo).concat("/mqdefault.jpg"))
+                    )).setWidth(50).setHeight(30).setBorder(Border.NO_BORDER);
+        }catch(Exception nfe){
+            imagen = imagenError;
+        }finally {
+
+        }
         Cell celda = new Cell()
                 .setTextAlignment(TextAlignment.CENTER)
                 .setBackgroundColor(ColorConstants.WHITE)
                 .add(
-                        new Paragraph("").add( new Image(
-                                ImageDataFactory.create(
-                                        new URL("https","i.ytimg.com", "/vi/".concat(idVideo).concat("/mqdefault.jpg"))
-                                )).setWidth(50).setHeight(30).setBorder(Border.NO_BORDER)
-                        )
+                        new Paragraph("").add( imagen)
                 );
         celda.setBorderBottom(new SolidBorder(ColorConstants.BLACK,1));
         celda.setBorderLeft(Border.NO_BORDER);

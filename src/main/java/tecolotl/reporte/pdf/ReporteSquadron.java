@@ -103,16 +103,27 @@ public class ReporteSquadron {
             TablaGrupoAlumnosPDF tablaGrupoAlumnosPDF = new TablaGrupoAlumnosPDF();
             DatosUsuarioPDF datosUsuarioPDF = new DatosUsuarioPDF();
             documento.add(datosUsuarioPDF.creaDatosEncabezado(datosProfesorModelo));
-            int tam = tareaAlumnoGrupoModeloList.size();
-            if(tam <=30){
+            if(tareaAlumnoGrupoModeloList.size() <=30){
                 documento.add(tablaGrupoAlumnosPDF.creaTabla(tareaAlumnoGrupoModeloList));
             }else {
-                List<TareaAlumnoGrupoModelo> tareaAlumnoGrupoModeloList1 = tareaAlumnoGrupoModeloList.subList(0,30);
+                for (int i = 0; i < tareaAlumnoGrupoModeloList.size(); i+=30) {
+                    if(i <= (tareaAlumnoGrupoModeloList.size() - 30)){
+                        List<TareaAlumnoGrupoModelo> datosSplit = tareaAlumnoGrupoModeloList.subList(i,i+30);
+                        documento.add(tablaGrupoAlumnosPDF.creaTabla(datosSplit));
+                        this.crearFondo(documentoPdf);
+                        documento.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                    }else{
+                        List<TareaAlumnoGrupoModelo> datosSplit = tareaAlumnoGrupoModeloList.subList(i,tareaAlumnoGrupoModeloList.size());
+                        documento.add(tablaGrupoAlumnosPDF.creaTabla(datosSplit));
+                        break;
+                    }
+                }
+               /*List<TareaAlumnoGrupoModelo> tareaAlumnoGrupoModeloList1 = tareaAlumnoGrupoModeloList.subList(0,30);
                 List<TareaAlumnoGrupoModelo>  tareaAlumnoGrupoModeloList2 = tareaAlumnoGrupoModeloList.subList(30,tam);
                 documento.add(tablaGrupoAlumnosPDF.creaTabla(tareaAlumnoGrupoModeloList1));
                 this.crearFondo(documentoPdf);
                 documento.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                documento.add(tablaGrupoAlumnosPDF.creaTabla(tareaAlumnoGrupoModeloList2));
+                documento.add(tablaGrupoAlumnosPDF.creaTabla(tareaAlumnoGrupoModeloList2));*/
             }
         }catch (Exception e){
             logger.severe("Ocurrio un error: ".concat(e.getMessage()));
@@ -140,7 +151,22 @@ public class ReporteSquadron {
             DatosUsuarioPDF datosUsuarioPDF = new DatosUsuarioPDF();
             TablaAlumnoCalificacionesPDF tablaAlumnoCalificacionesPDF = new TablaAlumnoCalificacionesPDF();
             documento.add(datosUsuarioPDF.creaDatosEncabezado(datosAlumnoTareaModelo));
-            documento.add(tablaAlumnoCalificacionesPDF.creaTabla(documentoPdf, tareaAlumnoModeloLista));
+            if(tareaAlumnoModeloLista.size() <= 14){
+                documento.add(tablaAlumnoCalificacionesPDF.creaTabla(documentoPdf, tareaAlumnoModeloLista));
+            }else{
+                for (int i = 0; i < tareaAlumnoModeloLista.size(); i+=14) {
+                    if(i <= (tareaAlumnoModeloLista.size() - 14)){
+                        List<TareaAlumnoModelo> datosSplit = tareaAlumnoModeloLista.subList(i,i+14);
+                        documento.add(tablaAlumnoCalificacionesPDF.creaTabla(documentoPdf,datosSplit));
+                        this.crearFondo(documentoPdf);
+                        documento.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                    }else{
+                        List<TareaAlumnoModelo> datosSplit = tareaAlumnoModeloLista.subList(i,tareaAlumnoModeloLista.size());
+                        documento.add(tablaAlumnoCalificacionesPDF.creaTabla(documentoPdf,datosSplit));
+                        break;
+                    }
+                }
+            }
         }catch (Exception e){
             logger.severe("Ocurrio un error: ".concat(e.getMessage()));
             logger.severe("Ocurrio por las siguientes razones:  ".concat(e.getCause().toString()));

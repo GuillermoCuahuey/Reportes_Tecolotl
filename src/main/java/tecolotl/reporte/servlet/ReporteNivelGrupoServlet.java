@@ -3,6 +3,7 @@ package tecolotl.reporte.servlet;
 import tecolotl.reporte.pdf.ReporteSquadron;
 import tecolotl.reporte.sesion.TareaAlumnoSesionBean;
 
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @WebServlet(name = "Reporte Nivel Grupos", urlPatterns = "reporte-nivel")
 public class ReporteNivelGrupoServlet extends HttpServlet {
+
     @Inject
     private TareaAlumnoSesionBean tareaAlumnoSesionBean;
 
