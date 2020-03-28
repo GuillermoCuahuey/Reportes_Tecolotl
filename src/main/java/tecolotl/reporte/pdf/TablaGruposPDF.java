@@ -23,8 +23,8 @@ public class TablaGruposPDF {
     private final DeviceRgb color4 = new DeviceRgb(255,255,255);
 
     public Table creaTabla(List<TareasResueltasModelo> tareasResueltasModeloLista, GrupoModelo grupoModelo){
-        Table tabla = new Table(5);
-        tabla .addCell(this.crearCampo(1,5)
+        Table tabla = new Table(4);
+        tabla .addCell(this.crearCampo(1,4)
                 .add(
                         new Paragraph("Group  "
                                 .concat(this.tipoGrado(grupoModelo.getGrado()))
@@ -36,14 +36,12 @@ public class TablaGruposPDF {
         tabla.addCell(this.crearCampo("Full name", 1, 1, color2));
         tabla.addCell(this.crearCampo("Level", 1, 1, color2));
         tabla.addCell(this.crearCampo("Activities Level",1,1,color2));
-        tabla.addCell(this.crearCampo("Total Activities Level", 1, 1, color2));
-        tabla.addCell(this.crearCampo("Total Activities Levels", 1, 1, color2));
+        tabla.addCell(this.crearCampo("Done & Graded", 1, 1, color2));
         for (TareasResueltasModelo tareasResueltasModelo: tareasResueltasModeloLista){
             tabla.addCell(this.crearCampo(tareasResueltasModelo.getNombre().concat(" ").concat(tareasResueltasModelo.getApellidoPaterno()).concat(" ").concat(tareasResueltasModelo.getApellidoMaterno()), 1, 1, color3));
             tabla.addCell(this.crearCampo(this.opciones(tareasResueltasModelo.getNivelLenguajeAlumno()), 1, 1, color3));
             tabla.addCell(this.crearCampo(tareasResueltasModelo.getNivelLenguaje(),1 ,1 ,color3));
             tabla.addCell(this.crearCampo(String.valueOf(this.opciones(tareasResueltasModelo.getNivelLenguajeAlumno(),tareasResueltasModelo.getTotalTareas())).concat("%"), 1, 1, color3));
-            tabla.addCell(this.crearCampo(String.valueOf((tareasResueltasModelo.getTotalTareas() * 100)/ 108).concat("%"), 1, 1, color3));
         }
         tabla.setBorder(Border.NO_BORDER);
         tabla.setMarginTop(10);

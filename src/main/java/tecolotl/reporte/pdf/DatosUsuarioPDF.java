@@ -53,7 +53,7 @@ public class DatosUsuarioPDF {
                                 .addCell(
                                         new Cell(1,1)
                                                 .add(
-                                                        new Paragraph("Nombre: ").setFontColor(color1)
+                                                        new Paragraph("Name: ").setFontColor(color1)
                                                 ).setBorder(Border.NO_BORDER)
                                 )
                                 .addCell(
@@ -69,7 +69,7 @@ public class DatosUsuarioPDF {
                                 new Table(2)
                                         .addCell(
                                                 new Cell(1,1)
-                                                        .add(new Paragraph("Apodo: ").setFontColor(color1))
+                                                        .add(new Paragraph("Nickname: ").setFontColor(color1))
                                                         .setBorder(Border.NO_BORDER)
                                         ).setBorder(Border.NO_BORDER)
                                         .addCell(
@@ -85,7 +85,7 @@ public class DatosUsuarioPDF {
                                 new Table(2)
                                         .addCell(
                                                 new Cell(1,1)
-                                                        .add(new Paragraph("Correo: ").setFontColor(color1))
+                                                        .add(new Paragraph("E-mail: ").setFontColor(color1))
                                                         .setBorder(Border.NO_BORDER))
                                         .setBorder(Border.NO_BORDER)
                                         .addCell(
