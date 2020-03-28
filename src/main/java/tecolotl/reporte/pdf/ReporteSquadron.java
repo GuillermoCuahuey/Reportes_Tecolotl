@@ -65,6 +65,7 @@ public class ReporteSquadron {
                 for(TareasResueltasModelo tareasResueltasModelo: tareasResueltasModeloLista){
                     if(grupoModelo.getId().equals(tareasResueltasModelo.getIdGrupo())){
                         auxTareasResuetas.add(tareasResueltasModelo);
+                        tareasResueltasModeloLista.remove(tareasResueltasModelo);
                     }
                 }
                 if(auxTareasResuetas.size() != 0 ){
