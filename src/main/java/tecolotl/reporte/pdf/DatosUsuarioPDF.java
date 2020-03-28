@@ -33,7 +33,7 @@ public class DatosUsuarioPDF {
     }
 
     public Table creaDatosEncabezado(DatosAlumnoTareaModelo datosAlumnoTareaModelo) throws Exception {
-        return this.creaTabla(datosAlumnoTareaModelo.getNombreCompleto(), datosAlumnoTareaModelo.getApodo(), datosAlumnoTareaModelo.getCorreo());
+        return this.creaTabla(datosAlumnoTareaModelo.getNombreCompleto(), datosAlumnoTareaModelo.getApodo(), "");
     }
     private Table creaTabla(String nombreCompleto, String apodo, String correo) throws MalformedURLException{
         Table tabla = new Table(new float[]{1,1});
