@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class TablaGruposPDF {
-
+    private Logger logger = Logger.getLogger(getClass().getName());
     private final DeviceCmyk color1 = new DeviceCmyk(75,100,0,0);
     private final DeviceCmyk color2 = new DeviceCmyk(22.27f, 17.97f, 24.61f, 0f);
     private final DeviceCmyk color3 = new DeviceCmyk(8,7,7,0);
@@ -121,27 +121,27 @@ public class TablaGruposPDF {
         int tam = 0;
         switch (String.valueOf(opcion)){
             case "1": {
-                tam = Math.round((valor * 100) / 18);
+                tam = Math.round(((valor * 100) / 18f));
                 break;
             }
             case "2": {
-                tam = Math.round((valor * 100) / 18);
+                tam = Math.round(((valor * 100) / 18f));
                 break;
             }
             case "3": {
-                tam = Math.round((valor * 100) / 18);
+                tam = Math.round(((valor * 100) / 18f));
                 break;
             }
             case "4": {
-                tam = Math.round((valor * 100) / 18);
+                tam = Math.round(((valor * 100) / 18f));
                 break;
             }
             case "5": {
-                tam = Math.round((valor * 100) / 18);
+                tam = Math.round(((valor * 100) / 18f));
                 break;
             }
             case "6": {
-                tam = Math.round((valor * 100) / 18);
+                tam = Math.round(((valor * 100) / 18f));
                 break;
             }
         }
