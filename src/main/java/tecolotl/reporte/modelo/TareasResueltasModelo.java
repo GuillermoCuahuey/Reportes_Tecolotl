@@ -13,6 +13,7 @@ public class TareasResueltasModelo {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
+    private Double promedio;
     private Integer totalTareas;
     private String  nivelLenguaje;
 
@@ -26,6 +27,7 @@ public class TareasResueltasModelo {
         this.nombre = tareasResueltasEntidad.getNombre();
         this.apellidoPaterno = tareasResueltasEntidad.getApellidoP();
         this.apellidoMaterno = tareasResueltasEntidad.getApellidoM();
+        this.promedio = tareasResueltasEntidad.getPromedio();
         this.totalTareas = tareasResueltasEntidad.getTotalTareas();
         this.nivelLenguaje = tareasResueltasEntidad.getNivelLenguaje();
     }
@@ -78,6 +80,14 @@ public class TareasResueltasModelo {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    public Double getPromedio() {
+        return promedio;
+    }
+
+    public void setPromedio(Double promedio) {
+        this.promedio = promedio;
+    }
+
     public Integer getTotalTareas() {
         return totalTareas;
     }
@@ -103,6 +113,7 @@ public class TareasResueltasModelo {
                 .add("nombre='" + nombre + "'")
                 .add("apellidoPaterno='" + apellidoPaterno + "'")
                 .add("apellidoMaterno='" + apellidoMaterno + "'")
+                .add("promedio=" + promedio)
                 .add("totalTareas=" + totalTareas)
                 .add("nivelLenguaje='" + nivelLenguaje + "'")
                 .toString();

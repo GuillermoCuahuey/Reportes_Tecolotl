@@ -61,7 +61,7 @@ public class TablaAlumnoCalificacionesPDF {
         for (TareaAlumnoModelo tareaAlumnoModelo : tareaAlumnoModeloLista){
             tabla.addCell(this.tareaImagen(tareaAlumnoModelo.getIdActividad()));
             tabla.addCell(
-                    this.crearCampo(new SimpleDateFormat("YYYY-MM-DD").format(tareaAlumnoModelo.getFechaAsignacion()), 1, 1, color3));
+                    this.crearCampo(new SimpleDateFormat("YYYY-MM-dd").format(tareaAlumnoModelo.getFechaAsignacion()), 1, 1, color3));
             tabla.addCell(
                     this.crearCampo(String.valueOf(tareaAlumnoModelo.getCalificacionTrascirpcion()).concat("%\n"), 1, 1, color4, tareaAlumnoModelo.getCalificacionTrascirpcion(),pdf));
             tabla.addCell(

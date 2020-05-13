@@ -29,19 +29,21 @@ public class TareasResueltasEntidad {
     private String nombre;
     private String apellidoP;
     private String apellidoM;
+    private Double promedio;
     private Integer totalTareas;
     private String nivelLenguaje;
 
     public TareasResueltasEntidad() {
     }
 
-    public TareasResueltasEntidad(UUID idGrupo, UUID idAlumno, Short nivelLenguajeAlumno, String nombre, String apellidoP, String apellidoM, Integer totalTareas, String nivelLenguaje) {
+    public TareasResueltasEntidad(UUID idGrupo, UUID idAlumno, Short nivelLenguajeAlumno, String nombre, String apellidoP, String apellidoM,Double promedio, Integer totalTareas, String nivelLenguaje) {
         this.idGrupo = idGrupo;
         this.idAlumno = idAlumno;
         this.nivelLenguajeAlumno = nivelLenguajeAlumno;
         this.nombre = nombre;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
+        this.promedio = promedio;
         this.totalTareas = totalTareas;
         this.nivelLenguaje = nivelLenguaje;
     }
@@ -108,6 +110,16 @@ public class TareasResueltasEntidad {
     }
 
     @Basic
+    @Column(name = "promedio")
+    public Double getPromedio() {
+        return promedio;
+    }
+
+    public void setPromedio(Double promedio) {
+        this.promedio = promedio;
+    }
+
+    @Basic
     @Column(name = "total_tareas_resueltas")
     public Integer getTotalTareas() {
         return totalTareas;
@@ -140,13 +152,14 @@ public class TareasResueltasEntidad {
                 nombre.equals(that.nombre) &&
                 apellidoP.equals(that.apellidoP) &&
                 apellidoM.equals(that.apellidoM) &&
+                promedio.equals(that.promedio) &&
                 totalTareas.equals(that.totalTareas) &&
                 nivelLenguaje.equals(that.nivelLenguaje);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idGrupo, idAlumno, nivelLenguajeAlumno, nombre, apellidoP, apellidoM, totalTareas, nivelLenguaje);
+        return Objects.hash(idGrupo, idAlumno, nivelLenguajeAlumno, nombre, apellidoP, apellidoM, promedio, totalTareas, nivelLenguaje);
     }
 
     @Override
@@ -158,6 +171,7 @@ public class TareasResueltasEntidad {
                 .add("nombre='" + nombre + "'")
                 .add("apellidoP='" + apellidoP + "'")
                 .add("apellidoM='" + apellidoM + "'")
+                .add("promedio=" + promedio)
                 .add("totalTareas=" + totalTareas)
                 .add("nivelLenguaje='" + nivelLenguaje + "'")
                 .toString();

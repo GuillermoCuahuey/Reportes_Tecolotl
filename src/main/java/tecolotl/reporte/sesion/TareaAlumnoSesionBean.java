@@ -55,8 +55,9 @@ public class TareaAlumnoSesionBean {
             tareasResueltasModelo.setNombre((String)objects[3]);
             tareasResueltasModelo.setApellidoPaterno((String)objects[4]);
             tareasResueltasModelo.setApellidoMaterno((String)objects[5]);
-            tareasResueltasModelo.setTotalTareas((Integer)objects[6]);
-            tareasResueltasModelo.setNivelLenguaje((String)objects[7]);
+            tareasResueltasModelo.setPromedio((Double)objects[6]);
+            tareasResueltasModelo.setTotalTareas((Integer)objects[7]);
+            tareasResueltasModelo.setNivelLenguaje((String)objects[8]);
             tareasResueltasModeloLista.add(tareasResueltasModelo);
         }
         return tareasResueltasModeloLista;

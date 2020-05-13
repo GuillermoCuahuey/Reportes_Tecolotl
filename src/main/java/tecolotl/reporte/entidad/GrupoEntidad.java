@@ -13,12 +13,12 @@ import java.util.UUID;
 public class GrupoEntidad {
     private UUID id;
     private Short grado;
-    private char grupo;
+    private String grupo;
 
     public GrupoEntidad() {
     }
 
-    public GrupoEntidad(UUID id, Short grado, char grupo) {
+    public GrupoEntidad(UUID id, Short grado, String grupo) {
         this.id = id;
         this.grado = grado;
         this.grupo = grupo;
@@ -44,11 +44,11 @@ public class GrupoEntidad {
     }
 
     @Column(name = "grupo")
-    public char getGrupo() {
+    public String getGrupo() {
         return grupo;
     }
 
-    public void setGrupo(char grupo) {
+    public void setGrupo(String grupo) {
         this.grupo = grupo;
     }
 

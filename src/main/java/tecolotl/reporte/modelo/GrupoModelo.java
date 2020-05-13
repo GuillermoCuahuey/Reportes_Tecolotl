@@ -8,7 +8,7 @@ import java.util.UUID;
 public class GrupoModelo {
     private UUID id;
     private Short grado;
-    private char grupo;
+    private String grupo;
 
     public GrupoModelo() {
     }
@@ -35,11 +35,11 @@ public class GrupoModelo {
         this.grado = grado;
     }
 
-    public char getGrupo() {
+    public String getGrupo() {
         return grupo;
     }
 
-    public void setGrupo(char grupo) {
+    public void setGrupo(String grupo) {
         this.grupo = grupo;
     }
 

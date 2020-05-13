@@ -29,7 +29,7 @@ public class TablaGruposPDF {
                         new Paragraph("Group  "
                                 .concat(this.tipoGrado(grupoModelo.getGrado()))
                                 .concat(" ")
-                                .concat(String.valueOf(grupoModelo.getGrupo())))
+                                .concat(grupoModelo.getGrupo()))
                                 .setFontColor(color4)
                 )
         );
