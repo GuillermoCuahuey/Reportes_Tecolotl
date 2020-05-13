@@ -125,23 +125,23 @@ public class TablaGruposPDF {
                 break;
             }
             case "2": {
-                tam = Math.round((valor * 100) / 36);
+                tam = Math.round((valor * 100) / 18);
                 break;
             }
             case "3": {
-                tam = Math.round((valor * 100) / 54);
+                tam = Math.round((valor * 100) / 18);
                 break;
             }
             case "4": {
-                tam = Math.round((valor * 100) / 72);
+                tam = Math.round((valor * 100) / 18);
                 break;
             }
             case "5": {
-                tam = Math.round((valor * 100) / 90);
+                tam = Math.round((valor * 100) / 18);
                 break;
             }
             case "6": {
-                tam = Math.round((valor * 100) / 108);
+                tam = Math.round((valor * 100) / 18);
                 break;
             }
         }
