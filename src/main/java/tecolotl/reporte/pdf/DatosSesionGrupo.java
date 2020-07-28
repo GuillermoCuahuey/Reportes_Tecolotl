@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class DatosSesionGrupo {
 
@@ -53,7 +54,7 @@ public class DatosSesionGrupo {
 
     private Table datosAlumno(String nombreCompleto, String apodoT, String apodoA, byte[] contrasenia, Short galaxia, PdfDocument pdf) throws IOException, URISyntaxException{
         String splitContrasenia = new String(contrasenia);
-        String []contrasenias = splitContrasenia.split(",",2);
+        String []contrasenias = splitContrasenia.split(",");
         Table tabla = new Table(1);
         //Imagen Squadron
         tabla.addCell(new Cell(1,1).setBorder(Border.NO_BORDER)
@@ -80,7 +81,7 @@ public class DatosSesionGrupo {
                 )
         );
         //Datos Alumno user, pass, galaxia
-        tabla.addCell(new Cell(1,1).setBorder(Border.NO_BORDER).add(this.creaTabla2(apodoA,contrasenias[0],contrasenias[1], pdf)));
+        tabla.addCell(new Cell(1,1).setBorder(Border.NO_BORDER).add(this.creaTabla2(apodoA,contrasenias, pdf)));
         tabla.addCell(new Cell(1,1).setBorder(Border.NO_BORDER)
                 .add(
                         new Paragraph("Galaxy: \n".concat(String.valueOf(galaxia)))
@@ -117,7 +118,7 @@ public class DatosSesionGrupo {
         return tabla;
     }
 
-    private Table creaTabla2(String dato, String pass1, String pass2, PdfDocument pdf) throws IOException{
+    private Table creaTabla2(String dato, String[] contraseniasArr, PdfDocument pdf) throws IOException{
         Table tabla = new Table(2);
         tabla.addCell(
                 new Cell(4,1).setBorder(Border.NO_BORDER)
@@ -131,13 +132,12 @@ public class DatosSesionGrupo {
         tabla.addCell(this.creaTitulo(1,1,"Student Username"));
         tabla.addCell(this.creaValor(dato));
         tabla.addCell(this.creaTitulo(1,1,"Password: "));
+        Paragraph planetas = new Paragraph("").setTextAlignment(TextAlignment.CENTER);
+        for(int i = 0; i < contraseniasArr.length ; i++){
+            planetas.add(this.passImg(contraseniasArr[i],pdf));
+        }
         tabla.addCell(new Cell(1,1).setBorder(Border.NO_BORDER)
-                .add(
-                        new Paragraph("")
-                                .setTextAlignment(TextAlignment.CENTER)
-                                .add(this.passImg(pass1,pdf))
-                                .add(this.passImg(pass2,pdf))
-                )
+                .add(planetas)
         );
         tabla.setBorder(Border.NO_BORDER);
         tabla.useAllAvailableWidth();
