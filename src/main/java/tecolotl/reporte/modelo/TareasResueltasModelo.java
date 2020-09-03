@@ -106,7 +106,7 @@ public class TareasResueltasModelo {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", TareasResueltasModelo.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", TareasResueltasModelo.class.getSimpleName() + "[","]\n")
                 .add("idGrupo=" + idGrupo)
                 .add("idAlumno=" + idAlumno)
                 .add("nivelLenguajeAlumno=" + nivelLenguajeAlumno)

@@ -14,13 +14,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 @WebServlet(name = "Reporte Calificaciones Alumno", urlPatterns = "reporte-calificaciones")
 public class ReporteCalificacionesAlumnoServlet extends HttpServlet {
-
+    private Logger logger = Logger.getLogger(getClass().getName());
     @Inject
     private TareaAlumnoSesionBean tareaAlumnoSesionBean;
 
@@ -31,7 +32,11 @@ public class ReporteCalificacionesAlumnoServlet extends HttpServlet {
     public void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException{
         String alumno = (String) httpServletRequest.getParameter("alumno");
         ByteArrayOutputStream reporte = reporteSquadron.creaPDF3(
-                tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString(alumno)), tareaAlumnoSesionBean.buscaAlumno(UUID.fromString(alumno))
+                tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString(alumno)),
+                tareaAlumnoSesionBean.buscaAlumno(UUID.fromString(alumno)),
+                (String) httpServletRequest.getParameter("totalTareas"),
+                (String) httpServletRequest.getParameter("totalCalificadas"),
+                (String) httpServletRequest.getParameter("promedio")
         );
         //System.out.println(tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString("041bb886-bfb4-4b66-8a0f-464a70fd4de9")).toString());
         httpServletResponse.setContentType("application/pdf");

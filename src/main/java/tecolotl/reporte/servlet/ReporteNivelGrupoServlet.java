@@ -3,7 +3,6 @@ package tecolotl.reporte.servlet;
 import tecolotl.reporte.pdf.ReporteSquadron;
 import tecolotl.reporte.sesion.TareaAlumnoSesionBean;
 
-import javax.ejb.EJBException;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,10 +15,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @WebServlet(name = "Reporte Nivel Grupos", urlPatterns = "reporte-nivel")
 public class ReporteNivelGrupoServlet extends HttpServlet {
-
+    private Logger logger = Logger.getLogger(getClass().getName());
     @Inject
     private TareaAlumnoSesionBean tareaAlumnoSesionBean;
 

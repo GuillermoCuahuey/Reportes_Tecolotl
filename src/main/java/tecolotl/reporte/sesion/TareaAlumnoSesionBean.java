@@ -34,7 +34,15 @@ public class TareaAlumnoSesionBean {
         query.setParameter(1, idGrupo);
         return ((List<TareaAlumnoGrupoEntidad>)query.getResultList()).stream().map(TareaAlumnoGrupoModelo::new).collect(Collectors.toList());
     }
-
+    /*
+    *   8:58:31,890 INFO  [tecolotl.reporte.sesion.TareaAlumnoSesionBean] (default task-1) [TareasResueltasModelo[idGrupo=769ac54b-e10d-4ceb-8b67-060634721c90, idAlumno=35dd04a8-754c-478f-af5a-9ab8a3abdfb2, nivelLenguajeAlumno=1, nombre='Alumno010', apellidoPaterno='Alumno010', apellidoMaterno='Alumno010', promedio=25.0, totalTareas=0, nivelLenguaje='A1']
+, TareasResueltasModelo[idGrupo=769ac54b-e10d-4ceb-8b67-060634721c90, idAlumno=35dd04a8-754c-478f-af5a-9ab8a3abdfb2, nivelLenguajeAlumno=1, nombre='Alumno010', apellidoPaterno='Alumno010', apellidoMaterno='Alumno010', promedio=25.0, totalTareas=0, nivelLenguaje='A2']
+, TareasResueltasModelo[idGrupo=769ac54b-e10d-4ceb-8b67-060634721c90, idAlumno=36ed8fcb-cd01-41b6-80c5-74117bbe24ec, nivelLenguajeAlumno=1, nombre='Alumno011', apellidoPaterno='Alumno011', apellidoMaterno='Alumno011', promedio=null, totalTareas=0, nivelLenguaje='A1']
+, TareasResueltasModelo[idGrupo=769ac54b-e10d-4ceb-8b67-060634721c90, idAlumno=ea3aaa89-bf8e-4799-ba32-722e964be6a6, nivelLenguajeAlumno=1, nombre='Alumno012', apellidoPaterno='Alumno012', apellidoMaterno='Alumno012', promedio=null, totalTareas=0, nivelLenguaje='A1']
+, TareasResueltasModelo[idGrupo=769ac54b-e10d-4ceb-8b67-060634721c90, idAlumno=e07d90b3-c86f-43ea-a9c2-565c82c13efb, nivelLenguajeAlumno=2, nombre='Alumno013', apellidoPaterno='Alumno013', apellidoMaterno='Alumno013', promedio=null, totalTareas=0, nivelLenguaje='A2']
+, TareasResueltasModelo[idGrupo=769ac54b-e10d-4ceb-8b67-060634721c90, idAlumno=928cea3e-be16-46a6-b00b-41ade74ce23e, nivelLenguajeAlumno=1, nombre='Alumno014', apellidoPaterno='Alumno014', apellidoMaterno='Alumno014', promedio=null, totalTareas=0, nivelLenguaje='A1']
+]
+     */
     /**
      * Busca el nivel de los alumnos, separados por grupo.
      * @param idGrupoLista indentificadores de grupos
@@ -42,25 +50,37 @@ public class TareaAlumnoSesionBean {
      */
     public List<TareasResueltasModelo> busca(@NotNull @Size(min = 1) List<UUID> idGrupoLista){
         Query query = entityManager.createNativeQuery("SELECT * FROM profesor.busca_tareas_resueltas(CAST (? AS uuid[]))");
+        Query query2 = entityManager.createNativeQuery("select tnl.id_nivel_lenguaje from alumno.tarea as t left join alumno.tarea_nivel_lenguaje as tnl on t.id = tnl.id_tarea where t.id_alumno = ?");
         final StringJoiner stringJoiner = new StringJoiner(",", "{", "}");
         idGrupoLista.forEach(grupo -> stringJoiner.add(grupo.toString()));
         query.setParameter(1,stringJoiner.toString());
         List<TareasResueltasModelo> tareasResueltasModeloLista = new ArrayList<>();
         List<Object[]> lista = query.getResultList();
         for (Object[] objects : lista) {
-            TareasResueltasModelo tareasResueltasModelo = new TareasResueltasModelo();
-            tareasResueltasModelo.setIdGrupo(UUID.fromString((String) objects[0]));
-            tareasResueltasModelo.setIdAlumno(UUID.fromString((String)objects[1]));
-            tareasResueltasModelo.setNivelLenguajeAlumno((Short)objects[2]);
-            tareasResueltasModelo.setNombre((String)objects[3]);
-            tareasResueltasModelo.setApellidoPaterno((String)objects[4]);
-            tareasResueltasModelo.setApellidoMaterno((String)objects[5]);
-            tareasResueltasModelo.setPromedio((Double)objects[6]);
-            tareasResueltasModelo.setTotalTareas((Integer)objects[7]);
-            tareasResueltasModelo.setNivelLenguaje((String)objects[8]);
-            tareasResueltasModeloLista.add(tareasResueltasModelo);
+            query2.setParameter(1, UUID.fromString((String)objects[1]));
+            if(query2.getResultList().size() >= 2 || query2.getResultList().isEmpty()){
+                tareasResueltasModeloLista.add(this.agregaDatos(objects));
+            }else{
+                if(((String)objects[8]).equalsIgnoreCase(String.valueOf(query2.getResultList().get(0)))){
+                    tareasResueltasModeloLista.add(this.agregaDatos(objects));
+                }
+            }
         }
+        logger.info(tareasResueltasModeloLista.toString());
         return tareasResueltasModeloLista;
+    }
+    private TareasResueltasModelo agregaDatos(Object[] objects){
+        TareasResueltasModelo tareasResueltasModelo = new TareasResueltasModelo();
+        tareasResueltasModelo.setIdGrupo(UUID.fromString((String) objects[0]));
+        tareasResueltasModelo.setIdAlumno(UUID.fromString((String)objects[1]));
+        tareasResueltasModelo.setNivelLenguajeAlumno((Short)objects[2]);
+        tareasResueltasModelo.setNombre((String)objects[3]);
+        tareasResueltasModelo.setApellidoPaterno((String)objects[4]);
+        tareasResueltasModelo.setApellidoMaterno((String)objects[5]);
+        tareasResueltasModelo.setPromedio((Double)objects[6]);
+        tareasResueltasModelo.setTotalTareas((Integer)objects[7]);
+        tareasResueltasModelo.setNivelLenguaje((String)objects[8]);
+        return tareasResueltasModelo;
     }
 
     /**
