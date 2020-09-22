@@ -93,7 +93,7 @@ public class ReporteSquadron {
                     documento.getBottomMargin()-75,
                     documento.getLeftMargin()-10);
             documento.add(
-                    new Paragraph("Activity Report Group"
+                    new Paragraph("Activity Report Group "
                             .concat(String.valueOf(grupoModelo.getGrado()))
                             .concat(" \"")
                             .concat(String.valueOf(grupoModelo.getGrupo()))

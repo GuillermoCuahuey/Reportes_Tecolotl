@@ -67,7 +67,7 @@ public class TablaGrupoAlumnosPDF {
         Cell celda = new Cell(rowSpan,colSpan)
                 .setTextAlignment(TextAlignment.CENTER)
                 .setBackgroundColor(color,0.1f)
-                .add(new Paragraph(valorCampo).setFontColor(ColorConstants.BLACK))
+                .add(new Paragraph(valorCampo.equalsIgnoreCase("null") ? "0" : valorCampo).setFontColor(ColorConstants.BLACK))
                 .setFontSize(6);
         celda.setBorderBottom(new SolidBorder(color1,1));
         celda.setBorderLeft(Border.NO_BORDER);

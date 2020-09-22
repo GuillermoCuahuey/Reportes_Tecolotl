@@ -14,20 +14,20 @@ public class TareaAlumnoGrupoEntidad {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private int totalRespuestaMapaMental;
-    private int totalAsignadaMapaMental;
-    private int calificadoMapaMental;
-    private int totalAsignadoRelacionar;
-    private int totalRespuestaRelacionar;
-    private int totalRespuestaGramatica;
-    private int totalAsignadaGramatica;
-    private int totalCalificadasGramatica;
-    private int totalRespuestaOraciones;
-    private int totalAsignadaOraciones;
-    private int totalRespuestaRelacionarOracion;
-    private int totalAsignadaRelacionarOracion;
-    private int totalRespuestaCompletar;
-    private int totalAsignadaCompletar;
+    private Integer totalRespuestaMapaMental;
+    private Integer totalAsignadaMapaMental;
+    private Integer calificadoMapaMental;
+    private Integer totalAsignadoRelacionar;
+    private Integer totalRespuestaRelacionar;
+    private Integer totalRespuestaGramatica;
+    private Integer totalAsignadaGramatica;
+    private Integer totalCalificadasGramatica;
+    private Integer totalRespuestaOraciones;
+    private Integer totalAsignadaOraciones;
+    private Integer totalRespuestaRelacionarOracion;
+    private Integer totalAsignadaRelacionarOracion;
+    private Integer totalRespuestaCompletar;
+    private Integer totalAsignadaCompletar;
 
     @Id
     @Type(type = "pg-uuid")
@@ -67,128 +67,128 @@ public class TareaAlumnoGrupoEntidad {
     }
 
     @Column(name = "total_respuesta_mapamental")
-    public int getTotalRespuestaMapaMental() {
+    public Integer getTotalRespuestaMapaMental() {
         return totalRespuestaMapaMental;
     }
 
-    public void setTotalRespuestaMapaMental(int totalRespuestaMapaMental) {
+    public void setTotalRespuestaMapaMental(Integer totalRespuestaMapaMental) {
         this.totalRespuestaMapaMental = totalRespuestaMapaMental;
     }
 
     @Column(name = "total_asignadas_mapamental")
-    public int getTotalAsignadaMapaMental() {
+    public Integer getTotalAsignadaMapaMental() {
         return totalAsignadaMapaMental;
     }
 
-    public void setTotalAsignadaMapaMental(int totalAsignadaMapaMental) {
+    public void setTotalAsignadaMapaMental(Integer totalAsignadaMapaMental) {
         this.totalAsignadaMapaMental = totalAsignadaMapaMental;
     }
 
-    @Column(name = "calificado_mapamental")
-    public int getCalificadoMapaMental() {
+    @Column(name = "total_calificado_mapamental")
+    public Integer getCalificadoMapaMental() {
         return calificadoMapaMental;
     }
 
-    public void setCalificadoMapaMental(int calificadoMapaMental) {
+    public void setCalificadoMapaMental(Integer calificadoMapaMental) {
         this.calificadoMapaMental = calificadoMapaMental;
     }
 
     @Column(name = "total_asignado_relacionar")
-    public int getTotalAsignadoRelacionar() {
+    public Integer getTotalAsignadoRelacionar() {
         return totalAsignadoRelacionar;
     }
 
-    public void setTotalAsignadoRelacionar(int totalAsignadoRelacionar) {
+    public void setTotalAsignadoRelacionar(Integer totalAsignadoRelacionar) {
         this.totalAsignadoRelacionar = totalAsignadoRelacionar;
     }
 
     @Column(name = "total_respuesta_relacionar")
-    public int getTotalRespuestaRelacionar() {
+    public Integer getTotalRespuestaRelacionar() {
         return totalRespuestaRelacionar;
     }
 
-    public void setTotalRespuestaRelacionar(int totalRespuestaRelacionar) {
+    public void setTotalRespuestaRelacionar(Integer totalRespuestaRelacionar) {
         this.totalRespuestaRelacionar = totalRespuestaRelacionar;
     }
 
     @Column(name = "total_respuesta_gramatica")
-    public int getTotalRespuestaGramatica() {
+    public Integer getTotalRespuestaGramatica() {
         return totalRespuestaGramatica;
     }
 
-    public void setTotalRespuestaGramatica(int totalRespuestaGramatica) {
+    public void setTotalRespuestaGramatica(Integer totalRespuestaGramatica) {
         this.totalRespuestaGramatica = totalRespuestaGramatica;
     }
 
     @Column(name = "total_asignado_gramatica")
-    public int getTotalAsignadaGramatica() {
+    public Integer getTotalAsignadaGramatica() {
         return totalAsignadaGramatica;
     }
 
-    public void setTotalAsignadaGramatica(int totalAsignadaGramatica) {
+    public void setTotalAsignadaGramatica(Integer totalAsignadaGramatica) {
         this.totalAsignadaGramatica = totalAsignadaGramatica;
     }
 
     @Column(name = "total_calificadas_gramatica")
-    public int getTotalCalificadasGramatica() {
+    public Integer getTotalCalificadasGramatica() {
         return totalCalificadasGramatica;
     }
 
-    public void setTotalCalificadasGramatica(int totalCalificadasGramatica) {
+    public void setTotalCalificadasGramatica(Integer totalCalificadasGramatica) {
         this.totalCalificadasGramatica = totalCalificadasGramatica;
     }
 
     @Column(name = "total_respuesta_oraciones")
-    public int getTotalRespuestaOraciones() {
+    public Integer getTotalRespuestaOraciones() {
         return totalRespuestaOraciones;
     }
 
-    public void setTotalRespuestaOraciones(int totalRespuestaOraciones) {
+    public void setTotalRespuestaOraciones(Integer totalRespuestaOraciones) {
         this.totalRespuestaOraciones = totalRespuestaOraciones;
     }
 
     @Column(name = "total_asignado_oraciones")
-    public int getTotalAsignadaOraciones() {
+    public Integer getTotalAsignadaOraciones() {
         return totalAsignadaOraciones;
     }
 
-    public void setTotalAsignadaOraciones(int totalAsignadaOraciones) {
+    public void setTotalAsignadaOraciones(Integer totalAsignadaOraciones) {
         this.totalAsignadaOraciones = totalAsignadaOraciones;
     }
 
     @Column(name = "total_respuesta_relacionar_oracion")
-    public int getTotalRespuestaRelacionarOracion() {
+    public Integer getTotalRespuestaRelacionarOracion() {
         return totalRespuestaRelacionarOracion;
     }
 
-    public void setTotalRespuestaRelacionarOracion(int totalRespuestaRelacionarOracion) {
+    public void setTotalRespuestaRelacionarOracion(Integer totalRespuestaRelacionarOracion) {
         this.totalRespuestaRelacionarOracion = totalRespuestaRelacionarOracion;
     }
 
     @Column(name = "total_asignado_relacionar_oracion")
-    public int getTotalAsignadaRelacionarOracion() {
+    public Integer getTotalAsignadaRelacionarOracion() {
         return totalAsignadaRelacionarOracion;
     }
 
-    public void setTotalAsignadaRelacionarOracion(int totalAsignadaRelacionarOracion) {
+    public void setTotalAsignadaRelacionarOracion(Integer totalAsignadaRelacionarOracion) {
         this.totalAsignadaRelacionarOracion = totalAsignadaRelacionarOracion;
     }
 
     @Column(name = "total_respuesta_completar")
-    public int getTotalRespuestaCompletar() {
+    public Integer getTotalRespuestaCompletar() {
         return totalRespuestaCompletar;
     }
 
-    public void setTotalRespuestaCompletar(int totalRespuestaCompletar) {
+    public void setTotalRespuestaCompletar(Integer totalRespuestaCompletar) {
         this.totalRespuestaCompletar = totalRespuestaCompletar;
     }
 
     @Column(name = "total_asignado_completar")
-    public int getTotalAsignadaCompletar() {
+    public Integer getTotalAsignadaCompletar() {
         return totalAsignadaCompletar;
     }
 
-    public void setTotalAsignadaCompletar(int totalAsignadaCompletar) {
+    public void setTotalAsignadaCompletar(Integer totalAsignadaCompletar) {
         this.totalAsignadaCompletar = totalAsignadaCompletar;
     }
 
