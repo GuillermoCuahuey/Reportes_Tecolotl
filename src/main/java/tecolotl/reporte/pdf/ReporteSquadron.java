@@ -133,7 +133,7 @@ public class ReporteSquadron {
         return byteArrayOutputStream;
     }
 
-    public ByteArrayOutputStream creaPDF3(List<TareaAlumnoModelo> tareaAlumnoModeloLista, DatosAlumnoTareaModelo datosAlumnoTareaModelo) throws IOException {
+    public ByteArrayOutputStream creaPDF3(List<TareaAlumnoModelo> tareaAlumnoModeloLista, DatosAlumnoTareaModelo datosAlumnoTareaModelo,  String p1, String p3) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         FontProgram fontProgram = FontProgramFactory.createFont("../fonts/Montserrat-Light.otf");
         PdfFont pdfFont = PdfFontFactory.createFont(fontProgram, PdfEncodings.UTF8,true);
@@ -151,6 +151,7 @@ public class ReporteSquadron {
             DatosUsuarioPDF datosUsuarioPDF = new DatosUsuarioPDF();
             TablaAlumnoCalificacionesPDF tablaAlumnoCalificacionesPDF = new TablaAlumnoCalificacionesPDF();
             documento.add(datosUsuarioPDF.creaDatosEncabezado(datosAlumnoTareaModelo));
+            documento.add(new Paragraph("Assigned HW: ".concat(p1).concat("    Grade average: ").concat(Integer.parseInt(p3) == -1 ? "Nothing answered yet!": p3)).setTextAlignment(TextAlignment.CENTER));
             if(tareaAlumnoModeloLista.size() <= 14){
                 documento.add(tablaAlumnoCalificacionesPDF.creaTabla(documentoPdf, tareaAlumnoModeloLista));
             }else{
