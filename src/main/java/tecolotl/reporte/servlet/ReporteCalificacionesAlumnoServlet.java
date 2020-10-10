@@ -33,10 +33,7 @@ public class ReporteCalificacionesAlumnoServlet extends HttpServlet {
         String alumno = (String) httpServletRequest.getParameter("alumno");
         ByteArrayOutputStream reporte = reporteSquadron.creaPDF3(
                 tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString(alumno)),
-                tareaAlumnoSesionBean.buscaAlumno(UUID.fromString(alumno)),
-                (String) httpServletRequest.getParameter("totalTareas"),
-                (String) httpServletRequest.getParameter("totalCalificadas"),
-                (String) httpServletRequest.getParameter("promedio")
+                tareaAlumnoSesionBean.buscaAlumno(UUID.fromString(alumno))
         );
         //System.out.println(tareaAlumnoSesionBean.buscaCalificaciones(UUID.fromString("041bb886-bfb4-4b66-8a0f-464a70fd4de9")).toString());
         httpServletResponse.setContentType("application/pdf");
